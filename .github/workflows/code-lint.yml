@@ -1,0 +1,30 @@
+name: Linter
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "30 6 * * 1"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+          cache: "pip"
+
+      - name: Install Dependencies
+        run: pip3 install yamllint ansible-base ansible-lint
+
+      - name: Run Linters
+        run: |
+          yamllint .
+          ansible-lint

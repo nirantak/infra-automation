@@ -1,0 +1,5 @@
+pip
+wheel
+setuptools
+ansible
+pre-commit
