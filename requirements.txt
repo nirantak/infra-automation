@@ -3,3 +3,5 @@ wheel
 setuptools
 ansible
 pre-commit
+ansible-lint
+yamllint
