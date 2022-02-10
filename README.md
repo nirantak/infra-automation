@@ -1,6 +1,13 @@
 # rpi-setup
 
-> _Raspberry Pi setup and config for all things Internet_
+> _Ansible playbooks to setup dev environments and home servers_
+
+- [rpi-setup](#rpi-setup)
+  - [Installation](#installation)
+  - [Playbooks](#playbooks)
+    - [rpi](#rpi)
+    - [macOS](#macos)
+  - [References](#references)
 
 ## Installation
 
@@ -16,19 +23,28 @@ ansible-galaxy collection install -r requirements.yml
 pre-commit install --install-hooks --overwrite
 ```
 
-## Usage
-
 Update the following files to your liking:
 
-- `inventory.ini` (replace IP address with your Pi's IP, or comment that line or uncomment the `connection=local` line if you're running it on the Pi you're setting up).
+- `inventory.ini` (replace IP address with your server's IP, or use `127.0.0.1` and add `connection=local` at the end if you're running it on the machine you're setting up).
 - `config.yml`
+
+## Playbooks
+
+### rpi
+
+> _Raspberry Pi setup and config for all things Internet_
+
+For backup for Pi-hole at least, in the GUI you can go to Settings > Teleporter and click 'Backup'. To automate it through the console, you can run `pihole -a -t`.
 
 ```bash
 ansible-playbook main.yml
 ```
 
-For backup for Pi-hole at least, in the GUI you can go to Settings > Teleporter and click 'Backup'. To automate it through the console, you can run `pihole -a -t`.
+### macOS
+
+> _Mac dev env setup and configuration_
 
 ## References
 
 - https://github.com/geerlingguy/internet-pi
+- https://github.com/geerlingguy/mac-dev-playbook
