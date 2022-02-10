@@ -1,8 +1,8 @@
-# rpi-setup
+# Ansible Setup Playbooks
 
 > _Ansible playbooks to setup dev environments and home servers_
 
-- [rpi-setup](#rpi-setup)
+- [Ansible Setup Playbooks](#ansible-setup-playbooks)
   - [Installation](#installation)
   - [Playbooks](#playbooks)
     - [rpi](#rpi)
@@ -12,8 +12,8 @@
 ## Installation
 
 ```bash
-git clone https://github.com/nirantak/rpi-setup.git
-cd rpi-setup
+git clone https://github.com/nirantak/ansible-setup.git
+cd ansible-setup
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -U -r requirements.txt
