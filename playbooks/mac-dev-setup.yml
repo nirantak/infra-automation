@@ -1,0 +1,7 @@
+---
+- hosts: mac
+  vars_files:
+    - config.yml
+  roles:
+    - { role: common, tags: "role-common" }
+    - { role: mac-dev-setup, tags: "role-mac-dev-setup" }

@@ -1,0 +1,20 @@
+---
+# Location where configuration files will be stored
+config_dir: "~"
+
+# Pi-hole configuration, update this section before running the playbook
+pihole_enable: true
+pihole_hostname: rpi.nirantak.com
+pihole_timezone: Asia/Kolkata
+pihole_password: "change-this-password"
+
+# Internet monitoring configuration
+monitoring_enable: true
+monitoring_grafana_admin_password: "change-this-password"
+monitoring_speedtest_interval: 60m
+monitoring_ping_interval: 5s
+monitoring_ping_hosts:
+  - http://www.google.com/;google.com
+  - https://github.com/;github.com
+  - https://speed.cloudflare.com//;cloudflare.com/
+  # [URL];[HUMAN_READABLE_NAME]

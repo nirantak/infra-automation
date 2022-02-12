@@ -21,3 +21,5 @@ rules:
   truthy:
     ignore: |
       .github/workflows/*
+  braces:
+    max-spaces-inside: 1

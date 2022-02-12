@@ -1,0 +1,18 @@
+---
+- name: reload nginx
+  service: name=nginx state=reloaded
+  become: true
+
+- name: Restart pi-hole
+  community.docker.docker_compose:
+    project_src: "{{ config_dir }}/pi-hole/"
+    build: false
+    restarted: true
+  become: false
+
+- name: Restart internet-monitoring
+  community.docker.docker_compose:
+    project_src: "{{ config_dir }}/internet-monitoring/"
+    build: false
+    restarted: true
+  become: false
