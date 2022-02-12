@@ -9,7 +9,7 @@ pihole_timezone: Asia/Kolkata
 pihole_password: "change-this-password"
 
 # Internet monitoring configuration
-monitoring_enable: true
+monitoring_enable: false
 monitoring_grafana_admin_password: "change-this-password"
 monitoring_speedtest_interval: 60m
 monitoring_ping_interval: 5s

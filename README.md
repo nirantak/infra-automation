@@ -69,6 +69,22 @@ Note: If you use the included Internet monitoring, it will download a decently-l
 
 > _Mac dev env setup and configuration_
 
+Update this file `group_vars/mac.yml` to select what software you want to install or configure.
+
+```bash
+# Install xcode command line tools
+xcode-select --install
+
+# To run the entire setup:
+ansible-playbook playbooks/mac-dev-setup.yml -k
+# Using the `-k` flag you can enter you macOS password before the playbook runs
+
+# Or run select tasks or roles using tags:
+ansible-playbook playbooks/mac-dev-setup.yml -k -t ping
+```
+
+This setup can be tested using https://github.com/geerlingguy/macos-virtualbox-vm
+
 ## References
 
 - https://github.com/geerlingguy/internet-pi

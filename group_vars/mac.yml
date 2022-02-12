@@ -1,1 +1,92 @@
 ---
+downloads: ~/.ansible-downloads/
+
+configure_dotfiles: true
+configure_terminal: true
+configure_osx: true
+
+# Set to 'true' to configure the Dock via dockutil.
+configure_dock: false
+dockitems_remove: []
+# - Launchpad
+# - TV
+# - Podcasts
+# - 'App Store'
+dockitems_persist: []
+# - name: "Visual Studio Code"
+#   path: "/Applications/Visual Studio Code.app/"
+#   pos: 5
+
+dotfiles_repo: https://github.com/nirantak/dotfiles.git
+dotfiles_repo_accept_hostkey: true
+dotfiles_repo_local_destination: ~/dotfiles
+dotfiles_files:
+  - .zshrc
+  - .gitignore
+  - .vimrc
+
+homebrew_installed_packages:
+  - autoconf
+  - bash-completion
+  - doxygen
+  - gettext
+  - gifsicle
+  - git
+  - github/gh/gh
+  - go
+  - gpg
+  - httpie
+  - iperf
+  - libevent
+  - sqlite
+  - mcrypt
+  - nmap
+  - node
+  - cowsay
+  - readline
+  - openssl
+  - pv
+  - wget
+  - wrk
+  - zsh-history-substring-search
+
+homebrew_taps:
+  - homebrew/core
+  - homebrew/cask
+
+homebrew_cask_appdir: /Applications
+homebrew_cask_apps:
+  - chromedriver
+  - docker
+  - dropbox
+  - firefox
+  - google-chrome
+  - licecap
+  - sequel-ace
+  - slack
+  - sublime-text
+  - transmit
+
+# See `geerlingguy.mas` role documentation for usage instructions
+mas_installed_apps: []
+mas_email: ""
+mas_password: ""
+
+# Install packages from other package managers
+gem_packages:
+  - name: bundler
+    state: latest
+
+npm_packages:
+  - name: browser-sync
+    state: latest
+  - name: eslint
+    state: latest
+  - name: prettier
+    state: latest
+  - name: speed-test
+    state: latest
+
+pip_packages:
+  - name: black
+    state: latest

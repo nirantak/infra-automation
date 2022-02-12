@@ -1,1 +1,4 @@
 ---
+- include: extra-packages.yml
+  tags:
+    - extra-packages

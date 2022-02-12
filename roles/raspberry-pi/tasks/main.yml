@@ -1,4 +1,15 @@
 ---
 - include: pihole.yml
+  when: pihole_enable
   tags:
     - pihole
+
+- include: docker.yml
+  when: monitoring_enable
+  tags:
+    - docker
+
+- include: uptime.yml
+  when: monitoring_enable
+  tags:
+    - uptime
