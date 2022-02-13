@@ -1,5 +1,0 @@
----
-- hosts: rpi
-  roles:
-    - { role: common, tags: "role-common" }
-    - { role: raspberry-pi, tags: "role-raspberry-pi" }

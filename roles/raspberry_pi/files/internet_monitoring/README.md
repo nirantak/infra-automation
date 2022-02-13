@@ -1,5 +1,12 @@
 # Internet Monitoring Docker Stack with Prometheus + Grafana
 
+- [Internet Monitoring Docker Stack with Prometheus + Grafana](#internet-monitoring-docker-stack-with-prometheus--grafana)
+  - [Pre-requisites](#pre-requisites)
+  - [Quick Start](#quick-start)
+  - [Configuration](#configuration)
+  - [Interesting urls](#interesting-urls)
+  - [Thanks and a disclaimer](#thanks-and-a-disclaimer)
+
 > This repository is a fork from [maxandersen/internet-monitoring](https://github.com/maxandersen/internet-monitoring), tailored for use on a Raspberry Pi. It has only been tested on a Raspberry Pi 4 running Pi OS 64-bit beta.
 >
 > This has also recently been merged into the internet-pi repository, so there could be a few little things that need tweaking.

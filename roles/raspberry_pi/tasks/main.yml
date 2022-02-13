@@ -1,4 +1,8 @@
 ---
+- include: rpi_setup.yml
+  tags:
+    - rpi_setup
+
 - include: pihole.yml
   when: pihole_enable
   tags:

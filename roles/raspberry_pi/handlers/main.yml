@@ -10,9 +10,9 @@
     restarted: true
   become: false
 
-- name: Restart internet-monitoring
+- name: Restart internet_monitoring
   community.docker.docker_compose:
-    project_src: "{{ config_dir }}/internet-monitoring/"
+    project_src: "{{ config_dir }}/internet_monitoring/"
     build: false
     restarted: true
   become: false

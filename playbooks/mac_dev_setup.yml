@@ -2,18 +2,18 @@
 - hosts: mac
   roles:
     - role: common
-      tags: "role-common"
-    - role: mac-dev-setup
-      tags: "role-mac-dev-setup"
+      tags: "role_common"
+    - role: mac_dev_setup
+      tags: "role_mac_dev_setup"
     - role: elliotweiser.osx-command-line-tools
     - role: geerlingguy.mac.homebrew
-      tags: "role-homebrew"
+      tags: "role_homebrew"
     - role: geerlingguy.dotfiles
       when: configure_dotfiles
-      tags: "role-dotfiles"
+      tags: "role_dotfiles"
     - role: geerlingguy.mac.mas
       when: mas_installed_apps or mas_installed_app_ids
-      tags: "role-mas"
+      tags: "role_mas"
     - role: geerlingguy.mac.dock
       when: configure_dock
-      tags: "role-dock"
+      tags: "role_dock"

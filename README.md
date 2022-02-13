@@ -48,12 +48,12 @@ Update the following files to your liking:
 
 ```bash
 # To run the entire setup:
-ansible-playbook playbooks/raspberry-pi.yml -k
+ansible-playbook playbooks/raspberry_pi.yml -k
 # Only use the `-k` flag the first time, so that you can enter the ssh password.
 # This is not needed once key-based ssh is setup.
 
 # Or run select tasks or roles using tags:
-ansible-playbook playbooks/raspberry-pi.yml -k -t ping
+ansible-playbook playbooks/raspberry_pi.yml -k -t ping
 ```
 
 - For backup for Pi-hole at least, in the GUI you can go to Settings > Teleporter and click 'Backup'. To automate it through the console, you can run `pihole -a -t`.
@@ -67,7 +67,7 @@ Installs the Pi-hole for network-wide ad-blocking and local DNS. Make sure to up
 #### Internet Monitoring
 
 Installs Prometheus and Grafana, along with a few Docker containers to monitor your Internet connection with Speedtest.net and HTTP tests so you can see uptime, ping stats, and speed-test results over time.
-Note: If you use the included Internet monitoring, it will download a decently-large amount of data through your Internet connection on a daily basis. If you have a metered connection, don't use it, or tune the `internet-monitoring` setup to not run the speedtests as often.
+Note: If you use the included Internet monitoring, it will download a decently-large amount of data through your Internet connection on a daily basis. If you have a metered connection, don't use it, or tune the `internet_monitoring` setup to not run the speedtests as often.
 
 **Grafana**: Visit the Pi's IP address with port 3030 (e.g. http://192.168.1.40:3030/), and log in with username `admin` and the password `monitoring_grafana_admin_password` you configured in your `config.yml`.
 
@@ -86,11 +86,11 @@ Note: If you use the included Internet monitoring, it will download a decently-l
 xcode-select --install
 
 # To run the entire setup:
-ansible-playbook playbooks/mac-dev-setup.yml -k
+ansible-playbook playbooks/mac_dev_setup.yml -k
 # Using the `-k` flag you can enter you macOS password before the playbook runs
 
 # Or run select tasks or roles using tags:
-ansible-playbook playbooks/mac-dev-setup.yml -k -t ping
+ansible-playbook playbooks/mac_dev_setup.yml -k -t ping
 ```
 
 - This setup can be tested using https://github.com/geerlingguy/macos-virtualbox-vm
