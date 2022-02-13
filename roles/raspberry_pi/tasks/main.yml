@@ -1,19 +1,19 @@
 ---
-- include: rpi_setup.yml
+- import_tasks: rpi_setup.yml
   tags:
     - rpi_setup
 
-- include: pihole.yml
+- import_tasks: pihole.yml
   when: pihole_enable
   tags:
     - pihole
 
-- include: docker.yml
+- import_tasks: docker.yml
   when: monitoring_enable
   tags:
     - docker
 
-- include: uptime.yml
+- import_tasks: uptime.yml
   when: monitoring_enable
   tags:
     - uptime

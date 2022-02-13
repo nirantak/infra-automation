@@ -1,1 +1,60 @@
 ---
+- name: Update packages
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+    upgrade: true
+    autoclean: true
+    autoremove: true
+  become: true
+  tags:
+    - update_packages
+
+- name: Update pi user's password
+  ansible.builtin.user:
+    name: pi
+    password: "{{ new_pi_password | password_hash('sha512') }}"
+    update_password: always
+    state: present
+  become: true
+  when: new_pi_password != "change-this-password"
+  tags:
+    - user_setup
+
+- name: Set authorized keys from url
+  ansible.posix.authorized_key:
+    user: pi
+    state: present
+    key: "{{ ssh_public_key_url }}"
+  tags:
+    - user_setup
+
+- name: Set hostname
+  ansible.builtin.hostname:
+    name: "{{ rpi_hostname }}"
+  become: true
+  tags:
+    - host_setup
+
+- name: Update /etc/hosts
+  ansible.builtin.template:
+    src: hosts.j2
+    dest: /etc/hosts
+    owner: root
+    group: root
+    mode: "0644"
+  become: true
+  tags:
+    - host_setup
+
+# do_boot_behaviour: B1 cli, B2 cli autologin, B3 desktop, B4 desktop autologin
+- name: Set raspi-config settings
+  shell: |
+    raspi-config nonint do_boot_behaviour B2
+    raspi-config nonint do_change_locale {{ rpi_locale }}
+    raspi-config nonint do_wifi_country {{ rpi_wifi_country }}
+    raspi-config nonint do_change_timezone {{ rpi_timezone }}
+    raspi-config nonint do_configure_keyboard {{ rpi_kb_layout }}
+  become: true
+  tags:
+    - host_setup

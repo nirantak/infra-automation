@@ -1,7 +1,13 @@
+# Default
 pip
 wheel
 setuptools
+
+# Required Packages
 ansible
+passlib
+
+# Dev Packages
 pre-commit
 ansible-lint
 yamllint

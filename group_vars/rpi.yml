@@ -6,11 +6,15 @@ config_dir: "~"
 # Raspberry Pi configuration
 default_pi_password: "raspberry"
 new_pi_password: "change-this-password"
+ssh_public_key_url: "https://github.com/nirantak.keys"
+rpi_hostname: rpi.nirantak.com
+rpi_timezone: Asia/Kolkata
+rpi_wifi_country: IN
+rpi_locale: en_US.UTF-8
+rpi_kb_layout: us
 
 # Pi-hole configuration
 pihole_enable: true
-pihole_hostname: rpi.nirantak.com
-pihole_timezone: Asia/Kolkata
 pihole_password: "change-this-password"
 
 # Internet monitoring configuration

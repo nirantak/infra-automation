@@ -1,4 +1,4 @@
 ---
-- include: extra_packages.yml
+- import_tasks: extra_packages.yml
   tags:
     - extra_packages

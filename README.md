@@ -45,6 +45,7 @@ Update the following files to your liking:
   - Update and copy the `wpa_supplicant.conf` file to enable WiFi, or connect an ethernet cable.
 - Once you are able to ssh into the rpi using the default credentials (user `pi` and password `raspberry`), run the ansible playbook to set it up.
 - Update the config file [group_vars/rpi.yml](group_vars/rpi.yml) as per your needs.
+- This setup assumes a Debian based rpi image (like Raspberry Pi OS or Ubuntu).
 
 ```bash
 # To run the entire setup:

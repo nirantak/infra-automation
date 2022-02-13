@@ -1,3 +1,9 @@
 ---
+exclude_paths:
+  - .cache/
+  - .github/
+  - .venv/
+  - ~/.ansible/
+
 skip_list:
   - experimental
