@@ -30,11 +30,21 @@ Update the following files to your liking:
 - `inventory.ini` (replace IP address with your server's IP, or use `127.0.0.1` and add `connection=local` at the end if you're running it on the machine you're setting up).
 - `group_vars/<group>.yml` to update the config for any host group from the inventory.
 
+---
+
 ## Playbooks
 
 ### rpi
 
 > _Raspberry Pi setup and config for all things Internet_
+
+- Download [Raspberry Pi OS Lite 64-bit](https://www.raspberrypi.com/software/operating-systems/#raspberry-pi-os-64-bit) and flash it on a Micro SD Card using [Raspberry Pi Imager](https://www.raspberrypi.com/software/)
+- From the [here](roles/raspberry-pi/files/boot) copy the required files to the `/boot` partition of the Raspberry Pi SD Card to enable certain features:
+  - Copy the `ssh` file as is, to enable ssh on first boot, so that a monitor or keyboard is not required for setup.
+  - Update and copy the `config.txt` file to edit the boot configuration.
+  - Update and copy the `wpa_supplicant.conf` file to enable WiFi, or connect an ethernet cable.
+- Once you are able to ssh into the rpi using the default credentials (user `pi` and password `raspberry`), run the ansible playbook to set it up.
+- Update the config file [group_vars/rpi.yml](group_vars/rpi.yml) as per your needs.
 
 ```bash
 # To run the entire setup:
@@ -46,15 +56,13 @@ ansible-playbook playbooks/raspberry-pi.yml -k
 ansible-playbook playbooks/raspberry-pi.yml -k -t ping
 ```
 
-For backup for Pi-hole at least, in the GUI you can go to Settings > Teleporter and click 'Backup'. To automate it through the console, you can run `pihole -a -t`.
+- For backup for Pi-hole at least, in the GUI you can go to Settings > Teleporter and click 'Backup'. To automate it through the console, you can run `pihole -a -t`.
 
 #### Pi-hole
 
 Installs the Pi-hole for network-wide ad-blocking and local DNS. Make sure to update your network router config to direct all DNS queries through your Raspberry Pi if you want to use Pi-hole effectively.
 
 **Pi-hole**: Visit the Pi's IP address (e.g. http://192.168.1.40/) and use the `pihole_password` you configured in your `config.yml` file.
-
-![Pi-hole Dashboard](.github/images/pi-hole.png)
 
 #### Internet Monitoring
 
@@ -63,13 +71,16 @@ Note: If you use the included Internet monitoring, it will download a decently-l
 
 **Grafana**: Visit the Pi's IP address with port 3030 (e.g. http://192.168.1.40:3030/), and log in with username `admin` and the password `monitoring_grafana_admin_password` you configured in your `config.yml`.
 
-![Internet Monitoring Dashboard in Grafana](.github/images/internet-monitoring.png)
+<img src=".github/images/pi-hole.png" title="Pi-hole Dashboard" width="49%" height="auto">
+<img src=".github/images/internet-monitoring.png" title="Internet Monitoring Dashboard in Grafana" width="49%" height="auto">
+
+---
 
 ### macOS
 
 > _Mac dev env setup and configuration_
 
-Update this file `group_vars/mac.yml` to select what software you want to install or configure.
+- Update the config file [group_vars/mac.yml](group_vars/mac.yml) as per your needs, to select what software you want to install or configure.
 
 ```bash
 # Install xcode command line tools
@@ -83,7 +94,9 @@ ansible-playbook playbooks/mac-dev-setup.yml -k
 ansible-playbook playbooks/mac-dev-setup.yml -k -t ping
 ```
 
-This setup can be tested using https://github.com/geerlingguy/macos-virtualbox-vm
+- This setup can be tested using https://github.com/geerlingguy/macos-virtualbox-vm
+
+---
 
 ## References
 
