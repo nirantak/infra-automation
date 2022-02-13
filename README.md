@@ -71,8 +71,7 @@ Note: If you use the included Internet monitoring, it will download a decently-l
 
 **Grafana**: Visit the Pi's IP address with port 3030 (e.g. http://192.168.1.40:3030/), and log in with username `admin` and the password `monitoring_grafana_admin_password` you configured in your `config.yml`.
 
-<img src=".github/images/pi-hole.png" title="Pi-hole Dashboard" width="49%" height="auto">
-<img src=".github/images/internet-monitoring.png" title="Internet Monitoring Dashboard in Grafana" width="49%" height="auto">
+<img src=".github/images/pi-hole.png" title="Pi-hole Dashboard" width="49%" /> <img src=".github/images/internet-monitoring.png" title="Internet Monitoring Dashboard in Grafana" width="49%" />
 
 ---
 
