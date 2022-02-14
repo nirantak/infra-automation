@@ -9,7 +9,7 @@
   become: false
 
 - name: Copy templated internet_monitoring files into place.
-  ansible.builtin.template:
+  template:
     src: templates/{{ item.src }}
     dest: "{{ config_dir }}/internet_monitoring/{{ item.dest }}"
     mode: 0644
@@ -20,7 +20,7 @@
       dest: prometheus/prometheus.yml
     - src: prometheus_pinghosts.yaml.j2
       dest: prometheus/pinghosts.yaml
-  notify: Restart internet_monitoring
+  notify: restart internet_monitoring
   become: false
 
 - name: Ensure internet_monitoring environment is running.

@@ -11,7 +11,7 @@
     - update_packages
 
 - name: Update pi user's password
-  ansible.builtin.user:
+  user:
     name: pi
     password: "{{ new_pi_password | password_hash('sha512') }}"
     update_password: always
@@ -30,14 +30,14 @@
     - user_setup
 
 - name: Set hostname
-  ansible.builtin.hostname:
+  hostname:
     name: "{{ rpi_hostname }}"
   become: true
   tags:
     - host_setup
 
 - name: Update /etc/hosts
-  ansible.builtin.template:
+  template:
     src: hosts.j2
     dest: /etc/hosts
     owner: root

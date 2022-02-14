@@ -3,14 +3,11 @@
   service: name=nginx state=reloaded
   become: true
 
-- name: Restart pi-hole
-  community.docker.docker_compose:
-    project_src: "{{ config_dir }}/pi-hole/"
-    build: false
-    restarted: true
+- name: restart pi-hole
+  shell: "pihole restartdns"
   become: false
 
-- name: Restart internet_monitoring
+- name: restart internet_monitoring
   community.docker.docker_compose:
     project_src: "{{ config_dir }}/internet_monitoring/"
     build: false
