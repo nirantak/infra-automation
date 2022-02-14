@@ -1,19 +1,15 @@
 ---
 - import_tasks: rpi_setup.yml
+  become: true
   tags:
     - rpi_setup
+
+- import_tasks: custom_shell.yml
+  when: customize_shell
+  tags:
+    - custom_shell
 
 - import_tasks: pihole.yml
   when: pihole_enable
   tags:
     - pihole
-
-- import_tasks: docker.yml
-  when: monitoring_enable
-  tags:
-    - docker
-
-- import_tasks: uptime.yml
-  when: monitoring_enable
-  tags:
-    - uptime

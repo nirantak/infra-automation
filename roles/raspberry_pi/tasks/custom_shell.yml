@@ -1,0 +1,110 @@
+---
+- name: Use zsh for root user
+  user:
+    name: root
+    shell: /bin/zsh
+  become: true
+
+- name: Use zsh for pi user
+  user:
+    name: "{{ rpi_username }}"
+    shell: /bin/zsh
+
+- name: Clone oh-my-zsh and plugins
+  ansible.builtin.git:
+    repo: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    single_branch: true
+    depth: 1
+    version: master
+  with_items:
+    - { src: "https://github.com/ohmyzsh/ohmyzsh.git", dest: ~/.oh-my-zsh }
+    - {
+        src: "https://github.com/zsh-users/zsh-autosuggestions.git",
+        dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions,
+      }
+    - {
+        src: "https://github.com/zsh-users/zsh-syntax-highlighting.git",
+        dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting,
+      }
+
+- name: Clone nirantak/dotfiles
+  ansible.builtin.git:
+    repo: https://github.com/nirantak/dotfiles.git
+    dest: ~/dotfiles
+    single_branch: true
+    depth: 1
+    version: main
+
+- name: Link custom dotfiles
+  ansible.builtin.file:
+    src: "~/dotfiles/shell/{{ item.src }}"
+    dest: "~/{{ item.dest }}"
+    owner: "{{ rpi_username }}"
+    group: "{{ rpi_username }}"
+    state: link
+    mode: "0644"
+    force: true
+  loop:
+    - { src: minimal.zshrc, dest: .zshrc }
+    - { src: minimal.vimrc, dest: .vimrc }
+    - { src: .zshenv, dest: .zshenv }
+
+- name: Clone pyenv and plugins
+  ansible.builtin.git:
+    repo: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    single_branch: true
+    depth: 1
+    version: master
+  with_items:
+    - { src: "https://github.com/pyenv/pyenv.git", dest: ~/.pyenv }
+    - {
+        src: "https://github.com/pyenv/pyenv-doctor.git",
+        dest: ~/.pyenv/plugins/pyenv-doctor,
+      }
+    - {
+        src: "https://github.com/pyenv/pyenv-update.git",
+        dest: ~/.pyenv/plugins/pyenv-update,
+      }
+  when: install_python_version
+
+- name: Reset connection so that pyenv config is picked up
+  meta: reset_connection
+
+- name: Install pyenv versions
+  shell:
+    cmd: pyenv install {{ install_python_version }}
+    creates: "~/.pyenv/versions/{{ install_python_version }}"
+
+- name: Set global pyenv version to {{ install_python_version }}
+  shell: pyenv global {{ install_python_version }}
+
+- name: Install python packages
+  ansible.builtin.pip:
+    name: "{{ item }}"
+    state: latest
+    executable: ~/.pyenv/shims/pip
+  with_items:
+    - pip
+    - wheel
+    - setuptools
+    - ipython
+    - httpie
+  tags:
+    - update_packages
+
+- name: Install node packages
+  community.general.npm:
+    name: "{{ item }}"
+    state: latest
+    global: true
+    production: true
+    executable: /usr/bin/npm
+  with_items:
+    - npm
+    - browser-sync
+    - speed-test
+  become: true
+  tags:
+    - update_packages

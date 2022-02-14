@@ -4,3 +4,15 @@
   tags:
     - ping
     - never
+
+- name: check language versions
+  shell: "python -V; ruby -v; go version; node -v"
+  register: chk_versions
+  tags:
+    - chk_versions
+    - never
+
+- debug: msg="{{ chk_versions.stdout }}"
+  tags:
+    - chk_versions
+    - never

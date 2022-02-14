@@ -1,1 +1,8 @@
 ---
+- name: Clone Pi-hole
+  ansible.builtin.git:
+    repo: https://github.com/pi-hole/pi-hole.git
+    dest: ~/pi-hole
+    single_branch: true
+    depth: 1
+    version: master

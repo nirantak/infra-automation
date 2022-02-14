@@ -43,18 +43,19 @@ Update the following files to your liking:
   - Copy the `ssh` file as is, to enable ssh on first boot, so that a monitor or keyboard is not required for setup.
   - Update and copy the `config.txt` file to edit the boot configuration.
   - Update and copy the `wpa_supplicant.conf` file to enable WiFi, or connect an ethernet cable.
-- Once you are able to ssh into the rpi using the default credentials (user `pi` and password `raspberry`), run the ansible playbook to set it up.
+- Once you are able to ssh into the rpi using the default credentials, run the ansible playbook to set it up.
 - Update the config file [group_vars/rpi.yml](group_vars/rpi.yml) as per your needs.
 - This setup assumes a Debian based rpi image (like Raspberry Pi OS or Ubuntu).
+- The default username is `pi` and password is `raspberry`
 
 ```bash
 # To run the entire setup:
 ansible-playbook playbooks/raspberry_pi.yml -k
-# Only use the `-k` flag the first time, so that you can enter the ssh password.
+# Only use the `-k` flag the first time, so that you can enter the default ssh password.
 # This is not needed once key-based ssh is setup.
 
 # Or run select tasks or roles using tags:
-ansible-playbook playbooks/raspberry_pi.yml -k -t ping
+ansible-playbook playbooks/raspberry_pi.yml -t ping
 ```
 
 - For backup for Pi-hole at least, in the GUI you can go to Settings > Teleporter and click 'Backup'. To automate it through the console, you can run `pihole -a -t`.

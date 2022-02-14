@@ -1,13 +1,4 @@
 ---
-- name: Install global NPM packages.
-  ansible.builtin.npm:
-    name: "{{ item.name | default(item) }}"
-    state: "{{ item.state | default('present') }}"
-    version: "{{ item.version | default(omit) }}"
-    global: true
-    executable: "{{ item.executable | default(omit) }}"
-  loop: "{{ npm_packages }}"
-
 - name: Install global Pip packages.
   ansible.builtin.pip:
     name: "{{ item.name | default(item) }}"
@@ -16,8 +7,17 @@
     executable: "{{ item.executable | default(omit) }}"
   loop: "{{ pip_packages }}"
 
+- name: Install global NPM packages.
+  community.general.npm:
+    name: "{{ item.name | default(item) }}"
+    state: "{{ item.state | default('present') }}"
+    version: "{{ item.version | default(omit) }}"
+    global: true
+    executable: "{{ item.executable | default(omit) }}"
+  loop: "{{ npm_packages }}"
+
 - name: Install global Ruby gems.
-  ansible.builtin.gem:
+  community.general.gem:
     name: "{{ item.name | default(item) }}"
     state: "{{ item.state | default('present') }}"
     version: "{{ item.version | default(omit) }}"
