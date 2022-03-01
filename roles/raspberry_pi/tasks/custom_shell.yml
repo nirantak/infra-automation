@@ -19,14 +19,8 @@
     version: master
   with_items:
     - { src: "https://github.com/ohmyzsh/ohmyzsh.git", dest: ~/.oh-my-zsh }
-    - {
-        src: "https://github.com/zsh-users/zsh-autosuggestions.git",
-        dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions,
-      }
-    - {
-        src: "https://github.com/zsh-users/zsh-syntax-highlighting.git",
-        dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting,
-      }
+    - { src: "https://github.com/zsh-users/zsh-autosuggestions.git", dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions }
+    - { src: "https://github.com/zsh-users/zsh-syntax-highlighting.git", dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting }
 
 - name: Clone nirantak/dotfiles
   ansible.builtin.git:
@@ -59,14 +53,8 @@
     version: master
   with_items:
     - { src: "https://github.com/pyenv/pyenv.git", dest: ~/.pyenv }
-    - {
-        src: "https://github.com/pyenv/pyenv-doctor.git",
-        dest: ~/.pyenv/plugins/pyenv-doctor,
-      }
-    - {
-        src: "https://github.com/pyenv/pyenv-update.git",
-        dest: ~/.pyenv/plugins/pyenv-update,
-      }
+    - { src: "https://github.com/pyenv/pyenv-doctor.git", dest: ~/.pyenv/plugins/pyenv-doctor }
+    - { src: "https://github.com/pyenv/pyenv-update.git", dest: ~/.pyenv/plugins/pyenv-update }
   when: install_python_version
 
 - name: Reset connection so that pyenv config is picked up

@@ -12,7 +12,8 @@
     - chk_versions
     - never
 
-- debug: msg="{{ chk_versions.stdout }}"
+- name: print language versions
+  debug: msg="{{ chk_versions.stdout }}"
   tags:
     - chk_versions
     - never

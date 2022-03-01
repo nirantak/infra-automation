@@ -3,6 +3,10 @@ Notes.md
 tmp/
 .DS_Store
 
+# Downloaded roles
+roles/elliotweiser.osx-command-line-tools/
+roles/geerlingguy.dotfiles/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

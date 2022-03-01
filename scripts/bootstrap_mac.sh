@@ -19,7 +19,7 @@ brew install curl wget git tree htop vim tmux zsh zsh-completions bat gnu-time g
 brew install python3 node go gcc rbenv nvm svn pandoc lynx imagemagick k9s
 brew install autossh vnstat openvpn coreutils hping wrk mtr inetutils nmap
 brew install cloudflare/cloudflare/cloudflared nirantak/tap/sshpass
-brew install gh geckodriver cloc diff-so-fancy jq fzf ripgrep pipx hyperfine
+brew install gh asciinema cloc diff-so-fancy jq fzf ripgrep pipx hyperfine
 
 echo -e "\n \x1B[32m Installing Apps \x1B[0m"
 brew install --cask rectangle iterm2 istat-menus raycast visual-studio-code

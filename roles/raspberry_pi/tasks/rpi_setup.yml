@@ -154,7 +154,8 @@
     - update_packages
 
 # check using `cat /proc/sys/vm/swappiness`
-- ansible.posix.sysctl:
+- name: Set Swappiness
+  ansible.posix.sysctl:
     name: vm.swappiness
     value: "20"
     state: present
@@ -162,7 +163,8 @@
     - set_sysctl
 
 # check using `cat /proc/sys/fs/inotify/max_user_watches`
-- ansible.posix.sysctl:
+- name: Set inotify max_user_watches
+  ansible.posix.sysctl:
     name: fs.inotify.max_user_watches
     value: "65536"
     state: present

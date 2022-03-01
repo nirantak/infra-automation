@@ -23,6 +23,9 @@ ansible-galaxy collection install -r requirements.yml
 
 # To set up pre-commit hooks, required for contributing code, run:
 pre-commit install --install-hooks --overwrite
+
+# On macOS, if you need to use the `-k` flag with ansible-playbook, run:
+brew install nirantak/tap/sshpass
 ```
 
 Update the following files to your liking:

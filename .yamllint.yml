@@ -9,10 +9,12 @@ yaml-files:
 
 ignore: |
   .venv/
+  roles/elliotweiser.osx-command-line-tools/
+  roles/geerlingguy.dotfiles/
 
 rules:
   line-length:
-    max: 120
+    max: 140
     level: warning
   document-start:
     ignore: |
