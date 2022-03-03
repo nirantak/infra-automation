@@ -2,7 +2,14 @@
 - name: Clone Pi-hole
   ansible.builtin.git:
     repo: https://github.com/pi-hole/pi-hole.git
-    dest: ~/pi-hole
+    dest: "{{ config_dir }}/pi-hole"
     single_branch: true
     depth: 1
     version: master
+
+- name: Install Pi-hole
+  shell:
+    cmd: bash basic-install.sh
+    chdir: "{{ config_dir }}/pi-hole/automated\ install/"
+    creates: /usr/local/bin/pihole
+  become: true

@@ -1,13 +1,13 @@
 ---
 # Update this file before running the playbook
 # Location where configuration files will be stored on the Pi
-config_dir: "~"
+config_dir: "/home/pi"
 
 # Raspberry Pi configuration
 rpi_username: "pi"
 rpi_password: "change-this-password"
 ssh_public_key_url: "https://github.com/nirantak.keys"
-rpi_hostname: rpi.nirantak.com
+rpi_hostname: pie.run
 rpi_timezone: Asia/Kolkata
 rpi_wifi_country: IN
 rpi_locale: en_US.UTF-8

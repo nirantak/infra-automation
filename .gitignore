@@ -1,7 +1,8 @@
+.DS_Store
 .vscode
 Notes.md
 tmp/
-.DS_Store
+backup/
 
 # Downloaded roles
 roles/elliotweiser.osx-command-line-tools/
