@@ -7,7 +7,6 @@
   - [Playbooks](#playbooks)
     - [rpi](#rpi)
       - [Pi-hole](#pi-hole)
-      - [Internet Monitoring](#internet-monitoring)
     - [macOS](#macos)
   - [References](#references)
 
@@ -69,14 +68,7 @@ Installs the Pi-hole for network-wide ad-blocking and local DNS. Make sure to up
 
 **Pi-hole**: Visit the Pi's IP address (e.g. http://192.168.1.40/) and use the `pihole_password` you configured in your `config.yml` file.
 
-#### Internet Monitoring
-
-Installs Prometheus and Grafana, along with a few Docker containers to monitor your Internet connection with Speedtest.net and HTTP tests so you can see uptime, ping stats, and speed-test results over time.
-Note: If you use the included Internet monitoring, it will download a decently-large amount of data through your Internet connection on a daily basis. If you have a metered connection, don't use it, or tune the `internet_monitoring` setup to not run the speedtests as often.
-
-**Grafana**: Visit the Pi's IP address with port 3030 (e.g. http://192.168.1.40:3030/), and log in with username `admin` and the password `monitoring_grafana_admin_password` you configured in your `config.yml`.
-
-<img src=".github/images/pi-hole.png" title="Pi-hole Dashboard" width="49%" /> <img src=".github/images/internet-monitoring.png" title="Internet Monitoring Dashboard in Grafana" width="49%" />
+<img src=".github/images/pi-hole.png" title="Pi-hole Dashboard" width="49%" />
 
 ---
 

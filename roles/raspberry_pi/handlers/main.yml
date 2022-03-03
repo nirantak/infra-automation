@@ -6,10 +6,3 @@
 - name: restart pi-hole
   shell: "pihole restartdns"
   become: false
-
-- name: restart internet_monitoring
-  community.docker.docker_compose:
-    project_src: "{{ config_dir }}/internet_monitoring/"
-    build: false
-    restarted: true
-  become: false

@@ -21,14 +21,3 @@ install_python_version: 3.10.2
 # Pi-hole configuration
 pihole_enable: true
 pihole_password: "change-this-password"
-
-# Internet monitoring configuration
-monitoring_enable: false
-monitoring_grafana_admin_password: "change-this-password"
-monitoring_speedtest_interval: 60m
-monitoring_ping_interval: 5s
-monitoring_ping_hosts:
-  - http://www.google.com/;google.com
-  - https://github.com/;github.com
-  - https://speed.cloudflare.com//;cloudflare.com
-  # [URL];[HUMAN_READABLE_NAME]
