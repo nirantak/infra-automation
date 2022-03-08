@@ -1,6 +1,23 @@
 ---
+- name: disable lighttpd
+  service:
+    name: lighttpd
+    state: stopped
+    enabled: false
+  become: true
+
+- name: reload php-fpm
+  service:
+    name: "{{ php_fpm_version.stdout }}"
+    state: reloaded
+    enabled: true
+  become: true
+
 - name: reload nginx
-  service: name=nginx state=reloaded
+  service:
+    name: nginx
+    state: reloaded
+    enabled: true
   become: true
 
 - name: restart pi-hole

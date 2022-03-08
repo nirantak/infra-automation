@@ -21,3 +21,4 @@ install_python_version: 3.10.2
 # Pi-hole configuration
 pihole_enable: true
 pihole_password: "change-this-password"
+pihole_admin_email: "change-this-email"

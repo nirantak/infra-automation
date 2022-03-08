@@ -153,6 +153,16 @@
   tags:
     - update_packages
 
+- name: Install packages from url
+  ansible.builtin.apt:
+    deb: "{{ item }}"
+    state: present
+  with_items:
+    - https://github.com/sharkdp/bat/releases/download/v0.20.0/bat_0.20.0_arm64.deb
+    - https://github.com/cloudflare/cloudflared/releases/download/2022.3.1/cloudflared-linux-arm64.deb
+  tags:
+    - update_packages
+
 # check using `cat /proc/sys/vm/swappiness`
 - name: Set Swappiness
   ansible.posix.sysctl:

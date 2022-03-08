@@ -66,7 +66,7 @@ ansible-playbook playbooks/raspberry_pi.yml -t ping
 
 Installs the Pi-hole for network-wide ad-blocking and local DNS. Make sure to update your network router config to direct all DNS queries through your Raspberry Pi if you want to use Pi-hole effectively.
 
-**Pi-hole**: Visit the Pi's IP address (e.g. http://192.168.1.40/) and use the `pihole_password` you configured in your `config.yml` file.
+**Pi-hole**: Visit the Pi's IP address (e.g. http://192.168.1.40/) and use the `pihole_password` you configured in your `config.yml` file (default is `password`).
 
 <img src=".github/images/pi-hole.png" title="Pi-hole Dashboard" width="49%" />
 

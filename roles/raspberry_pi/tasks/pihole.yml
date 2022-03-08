@@ -7,9 +7,35 @@
     depth: 1
     version: master
 
+- name: Update pi-hole setupVars.conf
+  template:
+    src: setupVars.conf.j2
+    dest: /etc/pihole/setupVars.conf
+    owner: root
+    group: root
+    mode: "0644"
+  become: true
+
 - name: Install Pi-hole
   shell:
-    cmd: bash basic-install.sh
+    cmd: bash basic-install.sh --unattended
     chdir: "{{ config_dir }}/pi-hole/automated\ install/"
     creates: /usr/local/bin/pihole
   become: true
+  notify:
+    - disable lighttpd
+    - reload php-fpm
+    - reload nginx
+
+- name: Update pi-hole admin password
+  shell: pihole -a -p {{ pihole_password }}
+  when: pihole_password != "change-this-password"
+
+- name: Update pi-hole
+  shell: pihole -up && pihole -g
+  notify:
+    - disable lighttpd
+    - reload php-fpm
+    - reload nginx
+  tags:
+    - update_pihole

@@ -1,10 +1,8 @@
 ---
 collections:
   - ansible.posix
-  - community.docker
   - community.general
   - geerlingguy.mac
 
 roles:
   - name: elliotweiser.osx-command-line-tools
-  - name: geerlingguy.dotfiles

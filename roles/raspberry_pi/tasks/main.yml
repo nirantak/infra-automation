@@ -4,6 +4,13 @@
   tags:
     - rpi_setup
 
+- name: Get installed php-fpm version
+  shell: ls /lib/systemd/system/ | sed -nr 's/^(php.*fpm)\.service$/\1/p'
+  register: php_fpm_version
+  changed_when: false
+  tags:
+    - always
+
 - import_tasks: custom_shell.yml
   when: customize_shell
   tags:
@@ -13,3 +20,12 @@
   when: pihole_enable
   tags:
     - pihole
+
+- import_tasks: server.yml
+  become: true
+  notify:
+    - reload php-fpm
+    - reload nginx
+  tags:
+    - server
+    - nginx
