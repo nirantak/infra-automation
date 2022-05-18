@@ -6,12 +6,12 @@ IFS=$'\n\t'
 USER=$(whoami)
 
 # Program versions for installation
-PYTHON_VERSION=3.10.2
-GO_VERSION=1.17.6
-NODE_VERSION=17
-RUBY_VERSION=3.1.0
-BAT_VERSION=0.19.0
-DOCKER_COMPOSE_VERSION=2.2.2
+PYTHON_VERSION=3.10.4
+GO_VERSION=1.18.2
+NODE_VERSION=18
+RUBY_VERSION=3.1.2
+BAT_VERSION=0.21.0
+DOCKER_COMPOSE_VERSION=2.5.1
 
 echo -e "\n \e[32m Updating System Packages \e[0m"
 sudo apt update && sudo apt upgrade -y
@@ -56,6 +56,7 @@ git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTO
 git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 git clone --depth=1 https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+git clone --depth=1 https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 wget "https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat_${BAT_VERSION}_amd64.deb" && \
 sudo dpkg -i bat_${BAT_VERSION}_amd64.deb && \
@@ -87,7 +88,7 @@ pyenv install ${PYTHON_VERSION}
 pyenv global ${PYTHON_VERSION}
 pip install -U pip wheel setuptools
 pip install -U black flake8 ipython pipx
-for package in httpie youtube-dl pre-commit awscli;
+for package in httpie youtube-dl powerline-status pre-commit awscli;
   do pipx install $package;
 done
 

@@ -1,10 +1,10 @@
 ---
 # Update this file before running the playbook
 # Location where configuration files will be stored on the Pi
-config_dir: "/home/pi"
+config_dir: "/home/nirantak"
 
 # Raspberry Pi configuration
-rpi_username: "pi"
+rpi_username: "nirantak"
 rpi_password: "change-this-password"
 ssh_public_key_url: "https://github.com/nirantak.keys"
 rpi_hostname: pie.run
@@ -15,10 +15,10 @@ rpi_kb_layout: us
 
 # Setup zsh, ohmyzsh with plugins, dotfiles
 customize_shell: true
-install_nodejs_version: 16
-install_python_version: 3.10.2
+install_nodejs_version: 18
+install_python_version: 3.10.4
 
 # Pi-hole configuration
 pihole_enable: true
 pihole_password: "change-this-password"
-pihole_admin_email: "change-this-email"
+pihole_admin_email: "admin@pie.run"

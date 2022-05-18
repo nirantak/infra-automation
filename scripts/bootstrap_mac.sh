@@ -24,8 +24,8 @@ brew install gh asciinema cloc diff-so-fancy jq fzf ripgrep pipx hyperfine
 echo -e "\n \x1B[32m Installing Apps \x1B[0m"
 brew install --cask rectangle iterm2 istat-menus raycast visual-studio-code
 brew install --cask google-chrome brave-browser firefox slack zoom tunnelblick
-brew install --cask spotify vlc obsidian 1password microsoft-remote-desktop
-brew install --cask android-file-transfer docker google-drive raspberry-pi-imager
+brew install --cask spotify vlc notion 1password microsoft-remote-desktop
+brew install --cask android-file-transfer docker raspberry-pi-imager
 
 echo -e "\n \x1B[32m Setting up Terminal \x1B[0m"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
