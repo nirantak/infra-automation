@@ -6,12 +6,11 @@ IFS=$'\n\t'
 USER=$(whoami)
 
 # Program versions for installation
-PYTHON_VERSION=3.10.4
-GO_VERSION=1.18.2
+PYTHON_VERSION=3.10.5
+GO_VERSION=1.18.3
 NODE_VERSION=18
-RUBY_VERSION=3.1.2
 BAT_VERSION=0.21.0
-DOCKER_COMPOSE_VERSION=2.5.1
+DOCKER_COMPOSE_VERSION=2.6.1
 
 echo -e "\n \e[32m Updating System Packages \e[0m"
 sudo apt update && sudo apt upgrade -y
@@ -49,7 +48,7 @@ cat /proc/sys/fs/inotify/max_user_watches && echo fs.inotify.max_user_watches=52
 cat /proc/sys/fs/inotify/max_user_watches
 
 echo -e "\n \e[32m Setting up Terminal \e[0m"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 chsh -s /bin/zsh
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
@@ -61,10 +60,7 @@ rm bat_${BAT_VERSION}_amd64.deb
 
 echo -e "\n \e[32m Installing pyenv \e[0m"
 sudo apt install -y pkg-config autoconf bison libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev libyaml-dev libreadline6-dev
-curl -L "https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer" | bash
-
-echo -e "\n \e[32m Installing rbenv \e[0m"
-curl -fsSL "https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-installer" | bash
+curl -L "https://raw.github.com/pyenv/pyenv-installer/master/bin/pyenv-installer" | bash
 
 echo -e "\n \e[32m Installing Golang \e[0m"
 wget "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz"
@@ -76,20 +72,14 @@ sudo apt install -y nodejs nodejs-dev
 sudo npm update -g
 sudo npm install -g browser-sync speed-test diff-so-fancy eslint prettier
 
-rbenv install ${RUBY_VERSION}
-rbenv global ${RUBY_VERSION}
-gem install bundler
-gem update --system
-
 pyenv install ${PYTHON_VERSION}
 pyenv global ${PYTHON_VERSION}
 pip install -U pip wheel setuptools
 pip install -U black flake8 ipython pipx
-for package in httpie youtube-dl powerline-status pre-commit awscli;
+for package in httpie youtube-dl powerline-status pre-commit;
   do pipx install $package;
 done
 
-ruby --version
 node --version
 go version
 python --version
