@@ -2,8 +2,7 @@
 # Update this file before running the playbook
 
 # Raspberry Pi configuration
-rpi_username: "nirantak"
-rpi_password: "change-this-password"
+rpi_password: "change-this-password" # change this to reset user password
 ssh_public_key_url: "https://github.com/nirantak.keys"
 rpi_hostname: pie.run
 rpi_timezone: Asia/Kolkata
@@ -12,13 +11,23 @@ rpi_locale: en_US.UTF-8
 rpi_kb_layout: us
 
 # Setup zsh, ohmyzsh with plugins, dotfiles
-customize_shell: true
-install_nodejs_version: 18
+install_custom_shell: true
 install_python_version: 3.10.6
 install_bat_version: 0.21.0
 install_cloudflared_version: 2022.8.0
 
 # Pi-hole configuration
-pihole_enable: true
-pihole_password: "change-this-password"
+install_pihole: true
+install_cloudflared_doh: true
+pihole_password: "change-this-password" # change this to reset pihole admin password
 pihole_admin_email: "admin@pie.run"
+pihole_adlist:
+  - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+  - https://raw.githubusercontent.com/notracking/hosts-blocklists/master/hostnames.txt
+  - https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt
+pihole_whitelist:
+  - chtbl.com # loads podcasts
+  - s.youtube.com # marks YT videos as watched
+  - firebaselogging.googleapis.com # causes some mobile apps to fail loading
+  - cdn.amplitude.com # causes some websites to fail loading
+  - p.typekit.net # loads Adobe fonts

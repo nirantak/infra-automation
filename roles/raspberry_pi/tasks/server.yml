@@ -9,12 +9,12 @@
 
 - name: Update pihole nginx virtual conf
   template:
-    src: nginx_pihole.conf.j2
+    src: pihole/nginx.conf.j2
     dest: /etc/nginx/conf.d/pihole.conf
     owner: root
     group: root
     mode: "0644"
-  when: pihole_enable
+  when: install_pihole
 
 - name: Set file permissions for nginx
   file:
@@ -32,4 +32,4 @@
       - pihole
       - www-data
     append: true
-  when: pihole_enable
+  when: install_pihole

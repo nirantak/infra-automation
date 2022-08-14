@@ -2,31 +2,41 @@
 - name: Clone Pi-hole
   git:
     repo: https://github.com/pi-hole/pi-hole.git
-    dest: ~/pi-hole
+    dest: "/home/{{ ansible_user }}/pi-hole"
     single_branch: true
     depth: 1
     version: master
 
-- name: Set file permissions for pi-hole config
+- name: Create pi-hole config dir
   file:
     path: /etc/pihole
     state: directory
     mode: "0755"
   become: true
 
-- name: Update pi-hole setupVars.conf
+- name: Get existing pihole_password
+  shell: "grep -i WEBPASSWORD /etc/pihole/setupVars.conf"
+  register: pihole_password_old
+  ignore_errors: true
+  changed_when: false
+  no_log: true
+
+- name: Update pi-hole configs
   template:
-    src: setupVars.conf.j2
-    dest: /etc/pihole/setupVars.conf
+    src: "pihole/{{ item.src }}"
+    dest: "/etc/pihole/{{ item.dest }}"
     owner: root
     group: root
     mode: "0644"
+  with_items:
+    - { src: setupVars.conf.j2, dest: setupVars.conf }
+    - { src: custom.list.j2, dest: custom.list }
   become: true
 
 - name: Install Pi-hole
   shell:
     cmd: bash basic-install.sh --unattended
-    chdir: "~/pi-hole/automated\ install/"
+    chdir: "/home/{{ ansible_user }}/pi-hole/automated\ install/"
     creates: /usr/local/bin/pihole
   become: true
   notify:
@@ -39,10 +49,70 @@
   when: pihole_password != "change-this-password"
 
 - name: Update pi-hole
-  shell: pihole -up && pihole -g
+  shell: pihole -up
   notify:
     - disable lighttpd
     - reload php-fpm
     - reload nginx
   tags:
     - update_pihole
+
+- name: Add custom adlists
+  shell: sqlite3 /etc/pihole/gravity.db "INSERT or IGNORE INTO adlist(address) values('{{ item }}');"
+  with_items: "{{ pihole_adlist }}"
+  become: true
+  tags:
+    - update_pihole
+    - update_pihole_db
+
+- name: Add custom whitelist domains
+  shell: sqlite3 /etc/pihole/gravity.db "INSERT or IGNORE INTO domainlist(domain,type) values('{{ item }}',0);"
+  with_items: "{{ pihole_whitelist }}"
+  become: true
+  tags:
+    - update_pihole
+    - update_pihole_db
+
+- name: Update pi-hole gravity database
+  shell: pihole -g
+  tags:
+    - update_pihole
+    - update_pihole_db
+
+- name: Add cloudflared user
+  user:
+    name: cloudflared
+    system: true
+    password_lock: true
+    create_home: false
+    shell: /usr/sbin/nologin
+  become: true
+  when: install_cloudflared_doh
+
+- name: Add cloudflared configs
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: cloudflared
+    group: cloudflared
+    mode: "0644"
+  with_items:
+    - { src: cloudflared/cloudflared, dest: /etc/default/cloudflared }
+    - { src: cloudflared/cloudflared.service, dest: /etc/systemd/system/cloudflared.service }
+  become: true
+  notify:
+    - restart cloudflared
+  when: install_cloudflared_doh
+
+- name: Set cloudflared config owners
+  file:
+    path: "{{ item }}"
+    owner: cloudflared
+    group: cloudflared
+  with_items:
+    - /etc/default/cloudflared
+    - /usr/local/bin/cloudflared
+  become: true
+  notify:
+    - restart cloudflared
+  when: install_cloudflared_doh

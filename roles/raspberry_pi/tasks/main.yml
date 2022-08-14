@@ -12,12 +12,12 @@
     - always
 
 - import_tasks: custom_shell.yml
-  when: customize_shell
+  when: install_custom_shell
   tags:
     - custom_shell
 
 - import_tasks: pihole.yml
-  when: pihole_enable
+  when: install_pihole
   tags:
     - pihole
 

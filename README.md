@@ -59,7 +59,8 @@ ansible-playbook playbooks/raspberry_pi.yml -k
 ansible-playbook playbooks/raspberry_pi.yml -t ping
 ```
 
-- For backup for Pi-hole at least, in the GUI you can go to Settings > Teleporter and click 'Backup'. To automate it through the console, you can run `pihole -a -t`.
+- To change Pi-hole web admin interface password, run `pihole -a -p`.
+- To backup the Pi-hole config using the GUI, go to Settings > Teleporter and click 'Backup'. Or run `pihole -a -t`.
 
 #### Pi-hole
 

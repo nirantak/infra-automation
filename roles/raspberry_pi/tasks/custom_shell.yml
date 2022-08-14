@@ -7,7 +7,7 @@
 
 - name: Use zsh for pi user
   user:
-    name: "{{ rpi_username }}"
+    name: "{{ ansible_user }}"
     shell: /bin/zsh
   become: true
 
@@ -41,8 +41,8 @@
   file:
     src: "~/dotfiles/{{ item.src }}"
     dest: "~/{{ item.dest }}"
-    owner: "{{ rpi_username }}"
-    group: "{{ rpi_username }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     state: link
     mode: "0644"
     force: true
@@ -77,9 +77,11 @@
   shell:
     cmd: pyenv install {{ install_python_version }}
     creates: "~/.pyenv/versions/{{ install_python_version }}"
+  when: install_python_version
 
 - name: Set global pyenv version to {{ install_python_version }}
   shell: pyenv global {{ install_python_version }}
+  when: install_python_version
 
 - name: Install python packages
   pip:
@@ -92,20 +94,6 @@
     - setuptools
     - ipython
     - httpie
-  tags:
-    - update_packages
-
-- name: Install node packages
-  community.general.npm:
-    name: "{{ item }}"
-    state: latest
-    global: true
-    production: true
-    executable: /usr/bin/npm
-  with_items:
-    - npm
-    - browser-sync
-    - speed-test
-  become: true
+  when: install_python_version
   tags:
     - update_packages

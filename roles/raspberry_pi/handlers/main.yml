@@ -23,3 +23,10 @@
 - name: restart pi-hole
   shell: "pihole restartdns"
   become: false
+
+- name: restart cloudflared
+  service:
+    name: cloudflared
+    state: restarted
+    enabled: true
+  become: true

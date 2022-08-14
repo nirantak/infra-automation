@@ -11,7 +11,7 @@
 
 - name: Update pi user's password
   user:
-    name: "{{ rpi_username }}"
+    name: "{{ ansible_user }}"
     password: "{{ rpi_password | password_hash('sha512') }}"
     update_password: always
     state: present
@@ -33,7 +33,7 @@
 
 - name: Set authorized keys from url
   ansible.posix.authorized_key:
-    user: "{{ rpi_username }}"
+    user: "{{ ansible_user }}"
     state: present
     key: "{{ ssh_public_key_url }}"
   tags:
@@ -88,6 +88,7 @@
       - libbz2-dev
       - libreadline-dev
       - libsqlite3-dev
+      - sqlite3
       - llvm
       - libncurses-dev
       - xz-utils
@@ -95,21 +96,6 @@
       - liblzma-dev
       - libyaml-dev
     state: latest
-  tags:
-    - update_packages
-
-- name: Add keys for extra repositories
-  apt_key:
-    id: 9FD3B784BC1C6FC31A8A0A1C1655A0AB68576280
-    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
-    state: present
-  when: install_nodejs_version
-
-- name: Add extra repositories into sources list
-  apt_repository:
-    repo: deb https://deb.nodesource.com/node_{{ install_nodejs_version }}.x {{ ansible_distribution_release }} main
-    state: present
-  when: install_nodejs_version and ansible_distribution_release
   tags:
     - update_packages
 
@@ -148,7 +134,6 @@
       - wireguard-dkms
       - certbot
       - python3-certbot-nginx
-      - nodejs
     state: latest
   tags:
     - update_packages
@@ -162,6 +147,8 @@
     - https://github.com/cloudflare/cloudflared/releases/download/{{ install_cloudflared_version }}/cloudflared-linux-arm64.deb
   tags:
     - update_packages
+  notify:
+    - restart cloudflared
 
 # check using `cat /proc/sys/vm/swappiness`
 - name: Set Swappiness
