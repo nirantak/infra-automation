@@ -1,7 +1,5 @@
 ---
 # Update this file before running the playbook
-# Location where configuration files will be stored on the Pi
-config_dir: "/home/nirantak"
 
 # Raspberry Pi configuration
 rpi_username: "nirantak"
@@ -16,7 +14,9 @@ rpi_kb_layout: us
 # Setup zsh, ohmyzsh with plugins, dotfiles
 customize_shell: true
 install_nodejs_version: 18
-install_python_version: 3.10.4
+install_python_version: 3.10.6
+install_bat_version: 0.21.0
+install_cloudflared_version: 2022.8.0
 
 # Pi-hole configuration
 pihole_enable: true

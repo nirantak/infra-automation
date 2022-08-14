@@ -9,9 +9,10 @@
   user:
     name: "{{ rpi_username }}"
     shell: /bin/zsh
+  become: true
 
 - name: Clone oh-my-zsh and plugins
-  ansible.builtin.git:
+  git:
     repo: "{{ item.src }}"
     dest: "{{ item.dest }}"
     single_branch: true
@@ -19,11 +20,17 @@
     version: master
   with_items:
     - { src: "https://github.com/ohmyzsh/ohmyzsh.git", dest: ~/.oh-my-zsh }
-    - { src: "https://github.com/zsh-users/zsh-autosuggestions.git", dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions }
-    - { src: "https://github.com/zsh-users/zsh-syntax-highlighting.git", dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting }
+    - {
+        src: "https://github.com/zsh-users/zsh-autosuggestions.git",
+        dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions,
+      }
+    - {
+        src: "https://github.com/zsh-users/zsh-syntax-highlighting.git",
+        dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting,
+      }
 
 - name: Clone nirantak/dotfiles
-  ansible.builtin.git:
+  git:
     repo: https://github.com/nirantak/dotfiles.git
     dest: ~/dotfiles
     single_branch: true
@@ -31,8 +38,8 @@
     version: main
 
 - name: Link custom dotfiles
-  ansible.builtin.file:
-    src: "~/dotfiles/shell/{{ item.src }}"
+  file:
+    src: "~/dotfiles/{{ item.src }}"
     dest: "~/{{ item.dest }}"
     owner: "{{ rpi_username }}"
     group: "{{ rpi_username }}"
@@ -40,12 +47,18 @@
     mode: "0644"
     force: true
   loop:
-    - { src: minimal.zshrc, dest: .zshrc }
-    - { src: minimal.vimrc, dest: .vimrc }
-    - { src: .zshenv, dest: .zshenv }
+    - { src: shell/minimal.zshrc, dest: .zshrc }
+    - { src: tools/.vimrc, dest: .vimrc }
+    - { src: shell/.zshenv, dest: .zshenv }
+
+- name: Download iterm2_shell_integration
+  get_url:
+    url: https://iterm2.com/shell_integration/zsh
+    dest: ~/.iterm2_shell_integration.zsh
+    mode: "0644"
 
 - name: Clone pyenv and plugins
-  ansible.builtin.git:
+  git:
     repo: "{{ item.src }}"
     dest: "{{ item.dest }}"
     single_branch: true
@@ -69,7 +82,7 @@
   shell: pyenv global {{ install_python_version }}
 
 - name: Install python packages
-  ansible.builtin.pip:
+  pip:
     name: "{{ item }}"
     state: latest
     executable: ~/.pyenv/shims/pip

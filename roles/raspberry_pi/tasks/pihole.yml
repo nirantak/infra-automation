@@ -1,11 +1,18 @@
 ---
 - name: Clone Pi-hole
-  ansible.builtin.git:
+  git:
     repo: https://github.com/pi-hole/pi-hole.git
-    dest: "{{ config_dir }}/pi-hole"
+    dest: ~/pi-hole
     single_branch: true
     depth: 1
     version: master
+
+- name: Set file permissions for pi-hole config
+  file:
+    path: /etc/pihole
+    state: directory
+    mode: "0755"
+  become: true
 
 - name: Update pi-hole setupVars.conf
   template:
@@ -19,7 +26,7 @@
 - name: Install Pi-hole
   shell:
     cmd: bash basic-install.sh --unattended
-    chdir: "{{ config_dir }}/pi-hole/automated\ install/"
+    chdir: "~/pi-hole/automated\ install/"
     creates: /usr/local/bin/pihole
   become: true
   notify:

@@ -17,7 +17,7 @@
   when: pihole_enable
 
 - name: Set file permissions for nginx
-  ansible.builtin.file:
+  file:
     path: /var/www/html
     state: directory
     owner: www-data
@@ -26,7 +26,7 @@
     recurse: true
 
 - name: Add www-data to pihole group
-  ansible.builtin.user:
+  user:
     name: www-data
     groups:
       - pihole

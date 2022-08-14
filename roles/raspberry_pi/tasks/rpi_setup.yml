@@ -1,6 +1,6 @@
 ---
 - name: Update packages
-  ansible.builtin.apt:
+  apt:
     update_cache: true
     cache_valid_time: 3600
     upgrade: true
@@ -56,7 +56,7 @@
     - host_setup
 
 - name: Install basic build packages
-  ansible.builtin.apt:
+  apt:
     pkg:
       - make
       - cmake
@@ -99,14 +99,14 @@
     - update_packages
 
 - name: Add keys for extra repositories
-  ansible.builtin.apt_key:
+  apt_key:
     id: 9FD3B784BC1C6FC31A8A0A1C1655A0AB68576280
     url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
     state: present
   when: install_nodejs_version
 
 - name: Add extra repositories into sources list
-  ansible.builtin.apt_repository:
+  apt_repository:
     repo: deb https://deb.nodesource.com/node_{{ install_nodejs_version }}.x {{ ansible_distribution_release }} main
     state: present
   when: install_nodejs_version and ansible_distribution_release
@@ -114,7 +114,7 @@
     - update_packages
 
 - name: Install more packages
-  ansible.builtin.apt:
+  apt:
     pkg:
       - zsh
       - screen
@@ -154,12 +154,12 @@
     - update_packages
 
 - name: Install packages from url
-  ansible.builtin.apt:
+  apt:
     deb: "{{ item }}"
     state: present
   with_items:
-    - https://github.com/sharkdp/bat/releases/download/v0.20.0/bat_0.20.0_arm64.deb
-    - https://github.com/cloudflare/cloudflared/releases/download/2022.3.1/cloudflared-linux-arm64.deb
+    - https://github.com/sharkdp/bat/releases/download/v{{ install_bat_version }}/bat_{{ install_bat_version }}_arm64.deb
+    - https://github.com/cloudflare/cloudflared/releases/download/{{ install_cloudflared_version }}/cloudflared-linux-arm64.deb
   tags:
     - update_packages
 
