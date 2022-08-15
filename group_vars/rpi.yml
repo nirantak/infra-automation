@@ -19,6 +19,7 @@ install_cloudflared_version: 2022.8.0
 # Pi-hole configuration
 install_pihole: true
 install_cloudflared_doh: true
+install_ssl_certs: true
 pihole_password: "change-this-password" # change this to reset pihole admin password
 pihole_admin_email: "admin@pie.run"
 pihole_adlist:

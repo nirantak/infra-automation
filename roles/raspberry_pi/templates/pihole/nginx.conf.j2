@@ -6,6 +6,19 @@ server {
   server_name {{ rpi_hostname }} {{ ansible_default_ipv4.address }};
   autoindex off;
 
+{% if install_ssl_certs %}
+  listen 443 ssl;
+  ssl_certificate /etc/letsencrypt/live/{{ rpi_hostname }}/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/{{ rpi_hostname }}/privkey.pem;
+
+  include /etc/letsencrypt/options-ssl-nginx.conf;
+
+  # Redirect non-https traffic to https
+  if ($scheme != "https") {
+    return 301 https://$host$request_uri;
+  }
+{% endif %}
+
   index pihole/index.php index.php index.html index.htm;
 
   location / {

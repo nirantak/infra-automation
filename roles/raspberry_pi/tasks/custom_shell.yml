@@ -5,7 +5,7 @@
     shell: /bin/zsh
   become: true
 
-- name: Use zsh for pi user
+- name: Use zsh for {{ ansible_user }} user
   user:
     name: "{{ ansible_user }}"
     shell: /bin/zsh
@@ -20,14 +20,8 @@
     version: master
   with_items:
     - { src: "https://github.com/ohmyzsh/ohmyzsh.git", dest: ~/.oh-my-zsh }
-    - {
-        src: "https://github.com/zsh-users/zsh-autosuggestions.git",
-        dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions,
-      }
-    - {
-        src: "https://github.com/zsh-users/zsh-syntax-highlighting.git",
-        dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting,
-      }
+    - { src: "https://github.com/zsh-users/zsh-autosuggestions.git", dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions }
+    - { src: "https://github.com/zsh-users/zsh-syntax-highlighting.git", dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting }
 
 - name: Clone nirantak/dotfiles
   git:
@@ -73,13 +67,13 @@
 - name: Reset connection so that pyenv config is picked up
   meta: reset_connection
 
-- name: Install pyenv versions
+- name: Install pyenv version {{ install_python_version }}
   shell:
     cmd: pyenv install {{ install_python_version }}
     creates: "~/.pyenv/versions/{{ install_python_version }}"
   when: install_python_version
 
-- name: Set global pyenv version to {{ install_python_version }}
+- name: Set global pyenv version {{ install_python_version }}
   shell: pyenv global {{ install_python_version }}
   when: install_python_version
 

@@ -20,6 +20,9 @@
   ignore_errors: true
   changed_when: false
   no_log: true
+  tags:
+    - update_pihole_config
+    - update_pihole
 
 - name: Update pi-hole configs
   template:
@@ -32,10 +35,16 @@
     - { src: setupVars.conf.j2, dest: setupVars.conf }
     - { src: custom.list.j2, dest: custom.list }
   become: true
+  tags:
+    - update_pihole_config
+    - update_pihole
 
-- name: Install Pi-hole
+- name: Install pi-hole
   shell:
-    cmd: bash basic-install.sh --unattended
+    cmd: |
+      # LIGHTTPD_ENABLED is required for successful installation, can be disabled later
+      sed -i -E 's/LIGHTTPD_ENABLED.*/LIGHTTPD_ENABLED=true/g' /etc/pihole/setupVars.conf
+      bash basic-install.sh --unattended
     chdir: "/home/{{ ansible_user }}/pi-hole/automated\ install/"
     creates: /usr/local/bin/pihole
   become: true
@@ -55,29 +64,29 @@
     - reload php-fpm
     - reload nginx
   tags:
-    - update_pihole
+    - update_pihole_version
 
 - name: Add custom adlists
   shell: sqlite3 /etc/pihole/gravity.db "INSERT or IGNORE INTO adlist(address) values('{{ item }}');"
   with_items: "{{ pihole_adlist }}"
   become: true
   tags:
+    - update_pihole_version
     - update_pihole
-    - update_pihole_db
 
 - name: Add custom whitelist domains
   shell: sqlite3 /etc/pihole/gravity.db "INSERT or IGNORE INTO domainlist(domain,type) values('{{ item }}',0);"
   with_items: "{{ pihole_whitelist }}"
   become: true
   tags:
+    - update_pihole_version
     - update_pihole
-    - update_pihole_db
 
 - name: Update pi-hole gravity database
   shell: pihole -g
   tags:
+    - update_pihole_version
     - update_pihole
-    - update_pihole_db
 
 - name: Add cloudflared user
   user:
@@ -116,3 +125,5 @@
   notify:
     - restart cloudflared
   when: install_cloudflared_doh
+  tags:
+    - update_cloudflared

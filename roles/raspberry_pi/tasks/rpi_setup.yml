@@ -9,7 +9,7 @@
   tags:
     - update_packages
 
-- name: Update pi user's password
+- name: Update {{ ansible_user }} user's password
   user:
     name: "{{ ansible_user }}"
     password: "{{ rpi_password | password_hash('sha512') }}"
@@ -39,7 +39,7 @@
   tags:
     - user_setup
 
-- name: Set hostname
+- name: Set hostname {{ rpi_hostname }}
   hostname:
     name: "{{ rpi_hostname }}"
   tags:
@@ -109,7 +109,6 @@
       - tree
       - xclip
       - xsel
-      - nano
       - vim
       - vim-gui-common
       - rsync
@@ -129,9 +128,6 @@
       - fonts-powerline
       - fonts-firacode
       - nginx
-      - wireguard
-      - wireguard-tools
-      - wireguard-dkms
       - certbot
       - python3-certbot-nginx
     state: latest
@@ -147,6 +143,7 @@
     - https://github.com/cloudflare/cloudflared/releases/download/{{ install_cloudflared_version }}/cloudflared-linux-arm64.deb
   tags:
     - update_packages
+    - update_cloudflared
   notify:
     - restart cloudflared
 
