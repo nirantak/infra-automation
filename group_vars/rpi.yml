@@ -14,7 +14,7 @@ rpi_kb_layout: us
 install_custom_shell: true
 install_python_version: 3.10.6
 install_bat_version: 0.21.0
-install_cloudflared_version: 2022.8.0
+install_cloudflared_version: 2022.8.2
 
 # Pi-hole configuration
 install_pihole: true

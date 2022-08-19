@@ -14,7 +14,7 @@ ignore: |
 
 rules:
   line-length:
-    max: 140
+    max: 160
     level: warning
   document-start:
     ignore: |

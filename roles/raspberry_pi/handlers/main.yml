@@ -1,9 +1,20 @@
 ---
+- name: restart pi-hole
+  shell: "pihole restartdns"
+  become: false
+
 - name: disable lighttpd
   service:
     name: lighttpd
     state: stopped
     enabled: false
+  become: true
+
+- name: restart cloudflared
+  service:
+    name: cloudflared
+    state: restarted
+    enabled: true
   become: true
 
 - name: reload php-fpm
@@ -17,16 +28,5 @@
   service:
     name: nginx
     state: reloaded
-    enabled: true
-  become: true
-
-- name: restart pi-hole
-  shell: "pihole restartdns"
-  become: false
-
-- name: restart cloudflared
-  service:
-    name: cloudflared
-    state: restarted
     enabled: true
   become: true

@@ -12,6 +12,8 @@ sudo xcodebuild -license accept
 # Check path and version
 xcode-select -p
 xcodebuild -version
+# On M1 Macs
+softwareupdate --install-rosetta
 ```
 
 ## Configuring GPG sign key
@@ -26,7 +28,6 @@ gpgconf --kill gpg-agent
 ## Install from the App Store
 
 - Xcode
-- 1password
 - NordVPN
 
 ## Optional software that can be installed via brew cask
@@ -34,4 +35,3 @@ gpgconf --kill gpg-agent
 - `gimp` - Photo editing
 - `insomnia` - API testing
 - `beekeeper-studio` - SQL viewer
-- `mongodb-compass` - NoSQL viewer
