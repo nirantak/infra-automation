@@ -1,20 +1,20 @@
-# Ansible Setup Playbooks
+# Infra Automation
 
 > _Ansible playbooks to setup dev environments and home servers_
 
-- [Ansible Setup Playbooks](#ansible-setup-playbooks)
+- [Infra Automation](#infra-automation)
   - [Installation](#installation)
   - [Playbooks](#playbooks)
     - [rpi](#rpi)
       - [Pi-hole](#pi-hole)
-    - [macOS](#macos)
+    - [macOS [WIP]](#macos-wip)
   - [References](#references)
 
 ## Installation
 
 ```bash
-git clone https://github.com/nirantak/ansible-setup.git
-cd ansible-setup
+git clone https://github.com/nirantak/infra-automation.git
+cd infra-automation
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -U -r requirements.txt
@@ -60,19 +60,23 @@ ansible-playbook playbooks/raspberry_pi.yml -t ping
 ```
 
 - To change Pi-hole web admin interface password, run `pihole -a -p`.
-- To backup the Pi-hole config using the GUI, go to Settings > Teleporter and click 'Backup'. Or run `pihole -a -t`.
+- To backup the Pi-hole config, run `pihole -a -t <backup-pihole.tar.gz>`.
 
 #### Pi-hole
 
 Installs the Pi-hole for network-wide ad-blocking and local DNS. Make sure to update your network router config to direct all DNS queries through your Raspberry Pi if you want to use Pi-hole effectively.
 
-**Pi-hole**: Visit the Pi's IP address (e.g. http://192.168.1.40/) and use the `pihole_password` you configured in your `config.yml` file (default is `password`).
+**Pi-hole**: Access the Pi-hole dahsboard using any of the following links and use the `pihole_password` you configured in your `config.yml` file.
 
-<img src=".github/images/pi-hole.png" title="Pi-hole Dashboard" width="49%" />
+- The rpi_hostname setup (eg: [pie.run](http://pie.run/admin))
+- The default domain name for Pi-hole setup ([pi.hole](https://pi.hole/admin))
+- The IP address of the server (eg: [192.168.1.40](https://192.168.1.40/admin))
+
+![Pi-hole Dashboard](.github/images/pi-hole.png)
 
 ---
 
-### macOS
+### macOS [WIP]
 
 > _Mac dev env setup and configuration_
 
@@ -90,11 +94,11 @@ ansible-playbook playbooks/mac_dev_setup.yml -k
 ansible-playbook playbooks/mac_dev_setup.yml -k -t ping
 ```
 
-- This setup can be tested using https://github.com/geerlingguy/macos-virtualbox-vm
+- This setup can be tested using [geerlingguy/macos-virtualbox-vm](https://github.com/geerlingguy/macos-virtualbox-vm)
 
 ---
 
 ## References
 
-- https://github.com/geerlingguy/internet-pi
-- https://github.com/geerlingguy/mac-dev-playbook
+- [geerlingguy/internet-pi](https://github.com/geerlingguy/internet-pi)
+- [geerlingguy/mac-dev-playbook](https://github.com/geerlingguy/mac-dev-playbook)
