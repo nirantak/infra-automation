@@ -57,6 +57,14 @@
   shell: pihole -a -p {{ pihole_password }}
   when: pihole_password != "change-this-password"
 
+- name: Add custom adlists
+  shell: sqlite3 /etc/pihole/gravity.db "INSERT or IGNORE INTO adlist(address) values('{{ item }}');"
+  with_items: "{{ pihole_adlist }}"
+  become: true
+  tags:
+    - update_pihole_version
+    - update_pihole
+
 - name: Update pi-hole
   shell: pihole -up
   notify:
@@ -65,14 +73,6 @@
     - reload nginx
   tags:
     - update_pihole_version
-
-- name: Add custom adlists
-  shell: sqlite3 /etc/pihole/gravity.db "INSERT or IGNORE INTO adlist(address) values('{{ item }}');"
-  with_items: "{{ pihole_adlist }}"
-  become: true
-  tags:
-    - update_pihole_version
-    - update_pihole
 
 - name: Add custom whitelist domains
   shell: sqlite3 /etc/pihole/gravity.db "INSERT or IGNORE INTO domainlist(domain,type) values('{{ item }}',0);"

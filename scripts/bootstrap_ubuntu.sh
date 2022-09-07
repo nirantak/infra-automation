@@ -6,10 +6,10 @@ IFS=$'\n\t'
 USER=$(whoami)
 
 # Program versions for installation
-PYTHON_VERSION=3.10.6
-GO_VERSION=1.19
+PYTHON_VERSION=3.10.7
+GO_VERSION=1.19.1
 NODE_VERSION=18
-BAT_VERSION=0.21.0
+BAT_VERSION=0.22.0
 DOCKER_COMPOSE_VERSION=2.9.0
 
 echo -e "\n \e[32m Updating System Packages \e[0m"
