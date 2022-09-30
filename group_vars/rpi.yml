@@ -13,8 +13,8 @@ rpi_kb_layout: us
 # Setup zsh, ohmyzsh with plugins, dotfiles
 install_custom_shell: true
 install_python_version: 3.10.7
-install_bat_version: 0.22.0
-install_cloudflared_version: 2022.9.0
+install_bat_version: 0.22.1
+install_cloudflared_version: 2022.9.1
 
 # Pi-hole configuration
 install_pihole: true
