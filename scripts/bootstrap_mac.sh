@@ -6,7 +6,7 @@ IFS=$'\n\t'
 USER=$(whoami)
 
 # Program versions for installation
-PYTHON_VERSION=3.10.7
+PYTHON_VERSION=3.11.3
 
 echo -e "\n \x1B[32m Setting up Dev Env \x1B[0m"
 xcode-select --install
@@ -19,7 +19,7 @@ brew install ctags gnu-time gnu-sed grep gpgme pinentry-mac watch
 brew install python3 node go gcc rbenv nvm svn pandoc lynx imagemagick k9s
 brew install autossh vnstat openvpn coreutils hping wrk mtr inetutils nmap
 brew install cloudflared nirantak/tap/sshpass gh sox pipx hyperfine
-brew install asciinema diff-so-fancy grc lnav cloc jq fzf ripgrep
+brew install asciinema diff-so-fancy grc lnav cloc jq fzf ripgrep shellcheck
 
 echo -e "\n \x1B[32m Installing Apps \x1B[0m"
 brew install --cask rectangle iterm2 istat-menus raycast visual-studio-code
@@ -41,7 +41,7 @@ curl -L "https://raw.github.com/pyenv/pyenv-installer/master/bin/pyenv-installer
 
 brew tap homebrew/cask-fonts
 brew tap homebrew/services
-brew install --cask font-fira-code font-source-code-pro font-hack-nerd-font font-victor-mono
+brew install --cask font-fira-code font-source-code-pro font-hack-nerd-font
 npm install -g browser-sync speed-test eslint prettier
 
 pyenv install ${PYTHON_VERSION}

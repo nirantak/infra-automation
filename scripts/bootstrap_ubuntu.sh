@@ -6,11 +6,10 @@ IFS=$'\n\t'
 USER=$(whoami)
 
 # Program versions for installation
-PYTHON_VERSION=3.10.7
-GO_VERSION=1.19.1
-NODE_VERSION=18
-BAT_VERSION=0.22.0
-DOCKER_COMPOSE_VERSION=2.9.0
+PYTHON_VERSION=3.11.3
+GO_VERSION=1.20.4
+NODE_VERSION=20
+BAT_VERSION=0.23.0
 
 echo -e "\n \e[32m Updating System Packages \e[0m"
 sudo apt update && sudo apt upgrade -y
@@ -35,9 +34,6 @@ curl -fsSL "https://download.docker.com/linux/ubuntu/gpg" | sudo apt-key add - &
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 sudo apt install docker-ce
 sudo usermod -aG docker ${USER}
-
-sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
 
 # Install Chrome, VSCode, docker-credential-helpers
 
