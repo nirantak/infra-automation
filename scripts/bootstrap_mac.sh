@@ -6,7 +6,7 @@ IFS=$'\n\t'
 USER=$(whoami)
 
 # Program versions for installation
-PYTHON_VERSION=3.11.3
+PYTHON_VERSION=3.12.3
 
 echo -e "\n \x1B[32m Setting up Dev Env \x1B[0m"
 xcode-select --install
@@ -16,7 +16,7 @@ sudo chown -R $USER:$(id -gn $USER) ~/.config
 echo -e "\n \x1B[32m Installing Packages \x1B[0m"
 brew install curl wget git tree htop vim tmux zsh zsh-completions bat
 brew install ctags gnu-time gnu-sed grep gpgme pinentry-mac watch
-brew install python3 node go gcc rbenv nvm svn pandoc lynx imagemagick k9s
+brew install python3 node go gcc svn pandoc lynx imagemagick k9s
 brew install autossh vnstat openvpn coreutils hping wrk mtr inetutils nmap
 brew install cloudflared nirantak/tap/sshpass gh sox pipx hyperfine
 brew install asciinema diff-so-fancy grc lnav cloc jq fzf ripgrep shellcheck
@@ -41,7 +41,9 @@ curl -L "https://raw.github.com/pyenv/pyenv-installer/master/bin/pyenv-installer
 
 brew tap homebrew/cask-fonts
 brew tap homebrew/services
+brew tap tinygo-org/tools
 brew install --cask font-fira-code font-source-code-pro font-hack-nerd-font
+brew install tinygo avrdude
 npm install -g browser-sync speed-test eslint prettier
 
 pyenv install ${PYTHON_VERSION}
