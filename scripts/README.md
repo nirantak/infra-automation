@@ -25,13 +25,16 @@ echo "pinentry-program $(brew --prefix)/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.
 gpgconf --kill gpg-agent
 ```
 
+## Custom Keybindings
+
+```bash
+mkdir -p ~/Library/KeyBindings
+
+# Set Option+4 to the Rupee symbol "₹"
+echo '{ "~4" = (insertText:, "₹"); }' >> ~/Library/KeyBindings/DefaultKeyBinding.dict
+```
+
 ## Install from the App Store
 
 - Xcode
 - NordVPN
-
-## Optional software that can be installed via brew cask
-
-- `gimp` - Photo editing
-- `insomnia` - API testing
-- `beekeeper-studio` - SQL viewer
