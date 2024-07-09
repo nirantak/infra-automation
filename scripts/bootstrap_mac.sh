@@ -6,7 +6,7 @@ IFS=$'\n\t'
 USER=$(whoami)
 
 # Program versions for installation
-PYTHON_VERSION=3.12.3
+PYTHON_VERSION=3.12.4
 
 echo -e "\n \x1B[32m Setting up Dev Env \x1B[0m"
 xcode-select --install
@@ -19,18 +19,16 @@ brew install ctags gnu-time gnu-sed grep gpgme pinentry-mac watch
 brew install python3 node go gcc svn pandoc lynx imagemagick k9s
 brew install autossh vnstat openvpn coreutils hping wrk mtr inetutils nmap
 brew install cloudflared nirantak/tap/sshpass gh sox pipx hyperfine
-brew install asciinema diff-so-fancy grc lnav cloc jq fzf ripgrep shellcheck
+brew install diff-so-fancy grc lnav cloc jq fzf ripgrep shellcheck
 
 echo -e "\n \x1B[32m Installing Apps \x1B[0m"
 brew install --cask rectangle iterm2 istat-menus raycast visual-studio-code
-brew install --cask google-chrome brave-browser firefox slack zoom
-brew install --cask spotify vlc notion 1password microsoft-remote-desktop
+brew install --cask google-chrome brave-browser slack zoom
+brew install --cask spotify vlc obsidian 1password karabiner-elements
 brew install --cask android-file-transfer docker raspberry-pi-imager
 
 echo -e "\n \x1B[32m Setting up Terminal \x1B[0m"
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-chsh -s $(which zsh)
-sudo chsh -s $(which zsh)
 $(brew --prefix)/opt/fzf/install --all
 
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
@@ -39,7 +37,6 @@ git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${Z
 
 curl -L "https://raw.github.com/pyenv/pyenv-installer/master/bin/pyenv-installer" | bash
 
-brew tap homebrew/cask-fonts
 brew tap homebrew/services
 brew tap tinygo-org/tools
 brew install --cask font-fira-code font-source-code-pro font-hack-nerd-font
