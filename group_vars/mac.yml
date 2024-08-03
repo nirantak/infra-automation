@@ -73,10 +73,6 @@ mas_email: ""
 mas_password: ""
 
 # Install packages from other package managers
-gem_packages:
-  - name: bundler
-    state: latest
-
 npm_packages:
   - name: browser-sync
     state: latest

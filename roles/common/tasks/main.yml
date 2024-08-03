@@ -6,7 +6,7 @@
     - never
 
 - name: check language versions
-  shell: "python -V; ruby -v; go version; node -v"
+  shell: "python -V; go version; node -v"
   register: chk_versions
   tags:
     - chk_versions

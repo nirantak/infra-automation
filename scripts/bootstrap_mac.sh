@@ -22,10 +22,10 @@ brew install cloudflared nirantak/tap/sshpass gh sox pipx hyperfine
 brew install diff-so-fancy grc lnav cloc jq fzf ripgrep shellcheck
 
 echo -e "\n \x1B[32m Installing Apps \x1B[0m"
-brew install --cask rectangle iterm2 istat-menus raycast visual-studio-code
+brew install --cask rectangle wezterm istat-menus raycast visual-studio-code
 brew install --cask google-chrome brave-browser slack zoom
 brew install --cask spotify vlc obsidian 1password karabiner-elements
-brew install --cask android-file-transfer docker raspberry-pi-imager
+brew install --cask android-file-transfer docker balenaetcher
 
 echo -e "\n \x1B[32m Setting up Terminal \x1B[0m"
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
