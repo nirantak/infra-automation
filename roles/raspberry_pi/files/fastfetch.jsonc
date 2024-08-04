@@ -41,7 +41,6 @@
     "break",
     "wifi",
     "dns",
-    "publicip",
     {
       "type": "localip",
       "showAllIps": true,

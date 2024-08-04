@@ -7,7 +7,6 @@
   - [Playbooks](#playbooks)
     - [rpi](#rpi)
       - [Pi-hole](#pi-hole)
-    - [macOS \[WIP\]](#macos-wip)
   - [References](#references)
 
 ## Installation
@@ -68,35 +67,12 @@ Installs the Pi-hole for network-wide ad-blocking and local DNS. Make sure to up
 
 - The rpi_hostname setup (eg: [pie.run](http://pie.run/admin))
 - The default domain name for Pi-hole setup ([pi.hole](https://pi.hole/admin))
-- The IP address of the server (eg: [192.168.1.40](https://192.168.1.40/admin))
+- The IP address of the server (eg: [192.168.1.90](https://192.168.1.90/admin))
 
 ![Pi-hole Dashboard](.github/images/pi-hole.png)
-
----
-
-### macOS [WIP]
-
-> _Mac dev env setup and configuration_
-
-- Update the config file [group_vars/mac.yml](group_vars/mac.yml) as per your needs, to select what software you want to install or configure.
-
-```bash
-# Install xcode command line tools
-xcode-select --install
-
-# To run the entire setup:
-ansible-playbook playbooks/mac_dev_setup.yml -k
-# Using the `-k` flag you can enter you macOS password before the playbook runs
-
-# Or run select tasks or roles using tags:
-ansible-playbook playbooks/mac_dev_setup.yml -k -t ping
-```
-
-- This setup can be tested using [geerlingguy/macos-virtualbox-vm](https://github.com/geerlingguy/macos-virtualbox-vm)
 
 ---
 
 ## References
 
 - [geerlingguy/internet-pi](https://github.com/geerlingguy/internet-pi)
-- [geerlingguy/mac-dev-playbook](https://github.com/geerlingguy/mac-dev-playbook)
