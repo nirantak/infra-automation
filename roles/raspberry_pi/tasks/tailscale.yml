@@ -1,1 +1,34 @@
 ---
+- name: Add tailscale apt key for {{ ansible_distribution }} {{ ansible_distribution_release }}
+  apt_key:
+    url: "https://pkgs.tailscale.com/stable/{{ ansible_distribution|lower }}/{{ ansible_distribution_release|lower }}.noarmor.gpg"
+    keyring: /usr/share/keyrings/tailscale-archive-keyring.gpg
+    state: present
+  tags:
+    - update_packages
+
+- name: Add tailscale repo for {{ ansible_distribution }} {{ ansible_distribution_release }}
+  apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/tailscale-archive-keyring.gpg] https://pkgs.tailscale.com/stable/{{ ansible_distribution|lower }} {{ ansible_distribution_release|lower }} main"
+    filename: tailscale
+    state: present
+  tags:
+    - update_packages
+
+- name: Install tailscale
+  apt:
+    pkg:
+      - tailscale
+    state: latest
+  tags:
+    - update_packages
+
+- name: Start tailscale
+  debug:
+    msg:
+      - Run the following command on {{ ansible_default_ipv4.address }} to start tailscale -
+      - "sudo tailscale up --qr"
+      - Complete the login and then check if the connection is successful by running -
+      - "tailscale ip"
+  tags:
+    - manual

@@ -10,6 +10,7 @@
     - custom_shell
 
 - import_tasks: tailscale.yml
+  become: true
   when: install_tailscale
   tags:
     - tailscale

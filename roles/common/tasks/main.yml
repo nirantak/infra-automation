@@ -17,3 +17,9 @@
   tags:
     - chk_versions
     - never
+
+- name: print OS version
+  debug: msg="{{ ansible_distribution|lower }} | {{ ansible_distribution_version }} | {{ ansible_distribution_release|lower }}"
+  tags:
+    - chk_os
+    - never
