@@ -31,6 +31,13 @@
     enabled: true
   become: true
 
+- name: restart tailscaled
+  service:
+    name: tailscaled
+    state: restarted
+    enabled: true
+  become: true
+
 - name: restart docker
   service:
     name: docker

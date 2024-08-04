@@ -22,6 +22,8 @@
     state: latest
   tags:
     - update_packages
+  notify:
+    - restart tailscaled
 
 - name: Start tailscale
   debug:
