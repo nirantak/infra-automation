@@ -21,7 +21,7 @@ sudo apt install -y make cmake build-essential ubuntu-restricted-extras ubuntu-r
 sudo apt install -y man wget curl git nano vim vim-gui-common zsh tmux htop less tree xclip xsel
 sudo apt install -y apt-transport-https software-properties-common ca-certificates
 sudo apt install -y coreutils dnsutils net-tools mosh openssh-client openssh-server
-sudo apt install -y neofetch rar unrar zip unzip gzip bzip2 p7zip-full cabextract
+sudo apt install -y rar unrar zip unzip gzip bzip2 p7zip-full cabextract
 sudo apt install -y terminator vlc imagemagick potrace ffmpeg pulseaudio paprefs cmus cmus-plugin-ffmpeg obs-studio
 sudo apt install -y pandoc lynx krename cloc fzf ripgrep
 sudo apt install -y clamav clamtk pass wireguard wireguard-tools wireguard-dkms

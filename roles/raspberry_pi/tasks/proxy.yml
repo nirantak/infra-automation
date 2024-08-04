@@ -1,7 +1,7 @@
 ---
 - name: Update nginx conf
   template:
-    src: nginx.conf.j2
+    src: nginx.conf
     dest: /etc/nginx/nginx.conf
     owner: root
     group: root
@@ -9,7 +9,7 @@
 
 - name: Update pihole nginx virtual conf
   template:
-    src: pihole/nginx.conf.j2
+    src: pihole/nginx.conf
     dest: /etc/nginx/conf.d/pihole.conf
     owner: root
     group: root

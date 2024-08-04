@@ -108,7 +108,6 @@
       - cloc
       - fzf
       - ripgrep
-      - neofetch
       - fonts-powerline
       - fonts-firacode
       - nginx
@@ -124,7 +123,8 @@
     state: present
   with_items:
     - https://github.com/sharkdp/bat/releases/download/v{{ install_bat_version }}/bat_{{ install_bat_version }}_arm64.deb
-    - https://github.com/cloudflare/cloudflared/releases/download/{{ install_cloudflared_version }}/cloudflared-linux-arm64.deb
+    - https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64.deb
+    - https://github.com/fastfetch-cli/fastfetch/releases/latest/download/fastfetch-linux-aarch64.deb
   tags:
     - update_packages
     - update_cloudflared

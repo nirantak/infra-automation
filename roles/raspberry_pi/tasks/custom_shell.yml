@@ -93,3 +93,39 @@
   when: install_python_version
   tags:
     - update_packages
+
+- name: Remove default motd
+  file:
+    path: "{{ item }}"
+    state: absent
+  become: true
+  with_items:
+    - /etc/motd
+    - /etc/update-motd.d/10-uname
+  tags:
+    - motd
+
+- name: Create fastfetch folder
+  file:
+    path: ~/.config/fastfetch
+    state: directory
+  tags:
+    - motd
+
+- name: Add fastfetch config
+  copy:
+    src: fastfetch.jsonc
+    dest: ~/.config/fastfetch/config.jsonc
+  tags:
+    - motd
+
+- name: Add custom motd
+  template:
+    src: motd.sh
+    dest: /etc/update-motd.d/10-default-motd
+    owner: root
+    group: root
+    mode: "0755"
+  become: true
+  tags:
+    - motd
