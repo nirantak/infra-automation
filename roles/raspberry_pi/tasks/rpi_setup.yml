@@ -9,16 +9,6 @@
   tags:
     - update_packages
 
-- name: Update {{ ansible_user }} user's password
-  user:
-    name: "{{ ansible_user }}"
-    password: "{{ rpi_password | password_hash('sha512') }}"
-    update_password: always
-    state: present
-  when: rpi_password != "change-this-password"
-  tags:
-    - user_setup
-
 # do_boot_behaviour: B1 cli, B2 cli autologin, B3 desktop, B4 desktop autologin
 - name: Set raspi-config settings
   shell: |
@@ -27,7 +17,6 @@
     raspi-config nonint do_wifi_country {{ rpi_wifi_country }}
     raspi-config nonint do_change_timezone {{ rpi_timezone }}
     raspi-config nonint do_configure_keyboard {{ rpi_kb_layout }}
-  when: rpi_password != "change-this-password"
   tags:
     - host_setup
 

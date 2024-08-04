@@ -2,7 +2,6 @@
 # Update this file before running the playbook
 
 # Raspberry Pi configuration
-rpi_password: "change-this-password" # change this to reset user password
 ssh_public_key_url: "https://github.com/nirantak.keys"
 rpi_hostname: pie.run
 rpi_timezone: Asia/Kolkata

@@ -25,7 +25,7 @@ echo -e "\n \x1B[32m Installing Apps \x1B[0m"
 brew install --cask rectangle wezterm istat-menus raycast visual-studio-code
 brew install --cask google-chrome brave-browser slack zoom
 brew install --cask spotify vlc obsidian 1password karabiner-elements
-brew install --cask android-file-transfer docker balenaetcher
+brew install --cask android-file-transfer docker raspberry-pi-imager
 
 echo -e "\n \x1B[32m Setting up Terminal \x1B[0m"
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

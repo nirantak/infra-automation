@@ -1,6 +1,7 @@
 # For more options and information see
 # https://rpf.io/configtxt
 # https://www.raspberrypi.com/documentation/computers/config_txt.html
+# https://github.com/RPi-Distro/pi-gen/blob/master/stage1/00-boot-files/files/config.txt
 
 # Enable audio (loads snd_bcm2835)
 dtparam=audio=on
@@ -10,11 +11,16 @@ camera_auto_detect=1
 
 # Automatically load overlays for detected DSI displays
 display_auto_detect=1
-hdmi_force_hotplug=1
+
+# Automatically load initramfs files, if found
+auto_initramfs=1
 
 # Enable DRM VC4 V3D driver
 dtoverlay=vc4-kms-v3d
 max_framebuffers=2
+
+# Don't have the firmware create an initial video= setting in cmdline.txt.
+disable_fw_kms_setup=1
 
 # Run in 64-bit mode
 arm_64bit=1
