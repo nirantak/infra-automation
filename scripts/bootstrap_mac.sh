@@ -23,8 +23,8 @@ brew install diff-so-fancy grc lnav cloc jq fzf ripgrep shellcheck
 
 echo -e "\n \x1B[32m Installing Apps \x1B[0m"
 brew install --cask rectangle wezterm istat-menus raycast visual-studio-code
-brew install --cask google-chrome brave-browser slack zoom
-brew install --cask spotify vlc obsidian 1password karabiner-elements
+brew install --cask spotify brave-browser slack zoom vlc
+brew install --cask obsidian 1password karabiner-elements tailscale
 brew install --cask android-file-transfer docker raspberry-pi-imager
 
 echo -e "\n \x1B[32m Setting up Terminal \x1B[0m"

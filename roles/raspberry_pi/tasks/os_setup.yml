@@ -64,11 +64,6 @@
       - software-properties-common
       - ca-certificates
       - command-not-found
-      - php-fpm
-      - php-cgi
-      - php-xml
-      - php-sqlite3
-      - php-intl
       - apache2-utils
       - pkg-config
       - autoconf
@@ -154,7 +149,7 @@
   tags:
     - set_sysctl
 
-- name: Setup UFW
+- name: Setup UFW firewall
   community.general.ufw:
     rule: allow
     port: "{{ item.port }}"

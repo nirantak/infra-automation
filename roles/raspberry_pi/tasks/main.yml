@@ -1,44 +1,29 @@
 ---
-- import_tasks: rpi_setup.yml
+- import_tasks: os_setup.yml
   become: true
   tags:
-    - rpi_setup
-
-- name: Get installed php-fpm version
-  shell: ls /lib/systemd/system/ | sed -nr 's/^(php.*fpm)\.service$/\1/p'
-  register: php_fpm_version
-  changed_when: false
-  tags:
-    - always
+    - os_setup
 
 - import_tasks: custom_shell.yml
   when: install_custom_shell
   tags:
     - custom_shell
 
+- import_tasks: tailscale.yml
+  when: install_tailscale
+  tags:
+    - tailscale
+
 - import_tasks: pihole.yml
   when: install_pihole
   tags:
     - pihole
 
-- import_tasks: server.yml
+- import_tasks: proxy.yml
   become: true
   notify:
     - reload php-fpm
     - reload nginx
   tags:
-    - server
-    - nginx
-
-- name: Setup certbot command for LetsEncrypt
-  debug:
-    msg:
-      - Run the following command on {{ ansible_default_ipv4.address }} to setup ssl certs -
-      - sudo certbot certonly --manual -d "{{ rpi_hostname }}" -m "{{ pihole_admin_email }}" --agree-tos --no-eff-email --preferred-challenges dns
-      - Update you DNS provider to add a TXT record with name _acme-challenge and value in the above command's output.
-      - Once successful, run the following command to reload nginx -
-      - sudo systemctl reload nginx
-  when: install_ssl_certs
-  tags:
-    - setup_ssl_command
+    - proxy
     - nginx

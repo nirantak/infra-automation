@@ -33,3 +33,16 @@
       - www-data
     append: true
   when: install_pihole
+
+- name: Setup certbot command for LetsEncrypt
+  debug:
+    msg:
+      - Run the following command on {{ ansible_default_ipv4.address }} to setup ssl certs -
+      - sudo certbot certonly --manual -d "{{ rpi_hostname }}" -m "{{ pihole_admin_email }}" --agree-tos --no-eff-email --preferred-challenges dns
+      - Update you DNS provider to add a TXT record with name _acme-challenge and value in the above command's output.
+      - Once successful, run the following command to reload nginx -
+      - sudo systemctl reload nginx
+  when: install_ssl_certs
+  tags:
+    - setup_ssl_command
+    - nginx

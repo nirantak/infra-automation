@@ -42,13 +42,15 @@
     force: true
   loop:
     - { src: shell/minimal.zshrc, dest: .zshrc }
+    - { src: shell/.inputrc, dest: .inputrc }
+    - { src: shell/.editrc, dest: .editrc }
     - { src: tools/.vimrc, dest: .vimrc }
     - { src: shell/.zshenv, dest: .zshenv }
 
-- name: Download iterm2_shell_integration
+- name: Download Wezterm shell integration
   get_url:
-    url: https://iterm2.com/shell_integration/zsh
-    dest: ~/.iterm2_shell_integration.zsh
+    url: https://raw.githubusercontent.com/wez/wezterm/main/assets/shell-integration/wezterm.sh
+    dest: ~/.wezterm_integration.sh
     mode: "0644"
 
 - name: Clone pyenv and plugins
