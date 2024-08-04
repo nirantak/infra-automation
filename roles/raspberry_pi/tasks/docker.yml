@@ -1,0 +1,41 @@
+---
+- name: Add docker apt key for {{ ansible_distribution_release }}
+  apt_key:
+    url: "https://download.docker.com/linux/debian/gpg"
+    state: present
+  tags:
+    - update_packages
+
+- name: Add docker repo for {{ ansible_distribution_release }}
+  apt_repository:
+    repo: "deb https://download.docker.com/linux/debian {{ ansible_distribution_release|lower }} stable"
+    filename: docker
+    state: present
+  tags:
+    - update_packages
+
+- name: Install docker
+  apt:
+    pkg:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: latest
+  tags:
+    - update_packages
+  notify:
+    - restart docker
+    - restart containerd
+
+- name: Create docker group
+  group:
+    name: docker
+    state: present
+
+- name: Add user {{ ansible_user }} to docker group
+  user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: true

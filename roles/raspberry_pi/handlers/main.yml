@@ -30,3 +30,17 @@
     state: reloaded
     enabled: true
   become: true
+
+- name: restart docker
+  service:
+    name: docker
+    state: restarted
+    enabled: true
+  become: true
+
+- name: restart containerd
+  service:
+    name: containerd
+    state: restarted
+    enabled: true
+  become: true

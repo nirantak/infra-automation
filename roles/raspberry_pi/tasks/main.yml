@@ -15,6 +15,11 @@
   tags:
     - tailscale
 
+- import_tasks: docker.yml
+  become: true
+  tags:
+    - docker
+
 - import_tasks: pihole.yml
   when: install_pihole
   tags:

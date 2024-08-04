@@ -1,15 +1,15 @@
 ---
-- name: Add tailscale apt key for {{ ansible_distribution }} {{ ansible_distribution_release }}
+- name: Add tailscale apt key for debian {{ ansible_distribution_release }}
   apt_key:
-    url: "https://pkgs.tailscale.com/stable/{{ ansible_distribution|lower }}/{{ ansible_distribution_release|lower }}.noarmor.gpg"
+    url: "https://pkgs.tailscale.com/stable/debian/{{ ansible_distribution_release|lower }}.noarmor.gpg"
     keyring: /usr/share/keyrings/tailscale-archive-keyring.gpg
     state: present
   tags:
     - update_packages
 
-- name: Add tailscale repo for {{ ansible_distribution }} {{ ansible_distribution_release }}
+- name: Add tailscale repo for debian {{ ansible_distribution_release }}
   apt_repository:
-    repo: "deb [signed-by=/usr/share/keyrings/tailscale-archive-keyring.gpg] https://pkgs.tailscale.com/stable/{{ ansible_distribution|lower }} {{ ansible_distribution_release|lower }} main"
+    repo: "deb [signed-by=/usr/share/keyrings/tailscale-archive-keyring.gpg] https://pkgs.tailscale.com/stable/debian {{ ansible_distribution_release|lower }} main"
     filename: tailscale
     state: present
   tags:
