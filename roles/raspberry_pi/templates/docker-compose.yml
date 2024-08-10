@@ -1,0 +1,50 @@
+name: rpi
+
+networks:
+  frontend:
+  backend:
+
+services:
+
+{% if homeassistant_install %}
+# https://www.home-assistant.io/installation/alternative#docker-compose
+  home-assistant:
+    container_name: home-assistant
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    volumes:
+      - "{{ docker_shared_dir }}/home-assistant:/config"
+      - /etc/localtime:/etc/localtime:ro
+      - /run/dbus:/run/dbus:ro
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+{% endif %}
+
+{% if pihole_install %}
+# https://github.com/pi-hole/docker-pi-hole#quick-start
+  pihole:
+    container_name: pihole
+    image: "pihole/pihole:latest"
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "{{ pihole_port }}:80/tcp"
+    environment:
+      TZ: '{{ rpi_timezone }}'
+      WEBPASSWORD: '{{ pihole_password }}'
+      FTLCONF_LOCAL_IPV4: '{{ ansible_facts['default_ipv4']['address'] }}'
+      PIHOLE_DNS_: '{{ pihole_upstream_dns }}'
+      VIRTUAL_HOST: '{{ pihole_hostname }}'
+      TEMPERATUREUNIT: 'c'
+      WEBTHEME: 'default-auto'
+    volumes:
+      - "{{ docker_shared_dir }}/pihole/etc-pihole:/etc/pihole"
+      - "{{ docker_shared_dir }}/pihole/etc-dnsmasq.d:/etc/dnsmasq.d"
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - frontend
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+{% endif %}

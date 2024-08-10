@@ -9,6 +9,7 @@ yaml-files:
 
 ignore: |
   .venv/
+  roles/raspberry_pi/templates/
 
 rules:
   line-length:

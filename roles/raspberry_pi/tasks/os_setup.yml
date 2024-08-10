@@ -72,6 +72,7 @@
       - libbz2-dev
       - libreadline-dev
       - libsqlite3-dev
+      - libseccomp2
       - sqlite3
       - llvm
       - libncurses-dev
@@ -87,7 +88,7 @@
   apt:
     pkg:
       - zsh
-      - screen
+      - tmux
       - htop
       - less
       - tree
@@ -100,6 +101,10 @@
       - ufw
       - dnsutils
       - net-tools
+      - netcat-openbsd
+      - telnet
+      - lsof
+      - nmap
       - openssh-client
       - openssh-server
       - imagemagick
@@ -110,9 +115,7 @@
       - ripgrep
       - fonts-powerline
       - fonts-firacode
-      - nginx
       - certbot
-      - python3-certbot-nginx
     state: latest
   tags:
     - update_packages
@@ -155,14 +158,14 @@
     port: "{{ item.port }}"
     proto: "{{ item.proto }}"
   with_items:
-    - { port: ssh, proto: tcp }
-    - { port: 80, proto: tcp }
-    - { port: 443, proto: tcp }
-    - { port: 53, proto: tcp }
-    - { port: 53, proto: udp }
-    - { port: 67, proto: tcp }
-    - { port: 67, proto: udp }
-    - { port: "546:547", proto: udp }
+    - { port: ssh, proto: tcp } # port 22
+    - { port: 80, proto: tcp } # HTTP
+    - { port: 443, proto: tcp } # HTTPS
+    - { port: 53, proto: tcp } # DNS tcp
+    - { port: 53, proto: udp } # DNS udp
+    - { port: 67, proto: tcp } # DHCP tcp
+    - { port: 67, proto: udp } # DHCP udp
+    - { port: "546:547", proto: udp } # DHCPv6
   tags:
     - setup_firewall
 

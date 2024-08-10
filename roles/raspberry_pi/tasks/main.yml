@@ -19,17 +19,3 @@
   become: true
   tags:
     - docker
-
-- import_tasks: pihole.yml
-  when: install_pihole
-  tags:
-    - pihole
-
-- import_tasks: proxy.yml
-  become: true
-  notify:
-    - reload php-fpm
-    - reload nginx
-  tags:
-    - proxy
-    - nginx

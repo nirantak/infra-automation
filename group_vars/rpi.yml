@@ -14,14 +14,21 @@ install_custom_shell: true
 install_tailscale: true
 install_python_version: 3.12.4
 install_bat_version: 0.24.0
-install_cloudflared_version: 2024.6.1
+
+# Docker configuration
+docker_shared_dir: "/home/{{ ansible_user }}/apps"
+
+# Home Assistant configuration
+homeassistant_install: true
+homeassistant_port: 8123
+homeassistant_hostname: home.pie.run
 
 # Pi-hole configuration
-install_pihole: true
-install_cloudflared_doh: true
-install_ssl_certs: true
+pihole_install: true
+pihole_hostname: dns.pie.run
+pihole_port: 8080
 pihole_password: "change-this-password" # change this to reset pihole admin password
-pihole_admin_email: "admin@pie.run"
+pihole_upstream_dns: "1.1.1.1;1.0.0.1"
 pihole_adlist:
   - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
   - https://raw.githubusercontent.com/notracking/hosts-blocklists/master/hostnames.txt

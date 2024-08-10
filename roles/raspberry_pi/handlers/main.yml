@@ -1,39 +1,7 @@
 ---
-- name: restart pi-hole
-  shell: "pihole restartdns"
-  become: false
-
-- name: disable lighttpd
-  service:
-    name: lighttpd
-    state: stopped
-    enabled: false
-  become: true
-
 - name: restart cloudflared
   service:
     name: cloudflared
-    state: restarted
-    enabled: true
-  become: true
-
-- name: reload php-fpm
-  service:
-    name: "{{ php_fpm_version.stdout }}"
-    state: reloaded
-    enabled: true
-  become: true
-
-- name: reload nginx
-  service:
-    name: nginx
-    state: reloaded
-    enabled: true
-  become: true
-
-- name: restart tailscaled
-  service:
-    name: tailscaled
     state: restarted
     enabled: true
   become: true
@@ -48,6 +16,27 @@
 - name: restart containerd
   service:
     name: containerd
+    state: restarted
+    enabled: true
+  become: true
+
+- name: restart docker-compose
+  community.docker.docker_compose_v2:
+    project_src: "{{ docker_shared_dir }}"
+    state: restarted
+  become: false
+
+- name: restart pihole
+  community.docker.docker_compose_v2:
+    project_src: "{{ docker_shared_dir }}"
+    services:
+      - pihole
+    state: restarted
+  become: false
+
+- name: restart tailscaled
+  service:
+    name: tailscaled
     state: restarted
     enabled: true
   become: true

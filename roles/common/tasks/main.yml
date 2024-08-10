@@ -23,3 +23,9 @@
   tags:
     - chk_os
     - never
+
+- name: print IP
+  debug: msg="{{ ansible_facts['default_ipv4']['address'] }}"
+  tags:
+    - chk_ip
+    - never

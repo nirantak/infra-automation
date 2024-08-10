@@ -37,8 +37,32 @@
 - name: Add user {{ ansible_user }} to docker group
   user:
     name: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     groups: docker
     append: true
 
 - name: Reset connection so that docker group is picked up
   meta: reset_connection
+
+- name: Create docker shared directory
+  file:
+    path: "{{ docker_shared_dir }}"
+    state: directory
+  become: false
+
+- name: Add docker-compose.yml file to {{ docker_shared_dir }}
+  template:
+    src: docker-compose.yml
+    dest: "{{ docker_shared_dir }}/docker-compose.yml"
+    mode: "0640"
+  become: false
+  tags:
+    - compose
+
+- name: Start docker compose
+  community.docker.docker_compose_v2:
+    project_src: "{{ docker_shared_dir }}"
+    state: present
+  become: false
+  tags:
+    - compose
