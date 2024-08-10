@@ -25,7 +25,13 @@
     - never
 
 - name: print IP
-  debug: msg="{{ ansible_facts['default_ipv4']['address'] }}"
+  debug: msg="IP={{ ansible_facts.default_ipv4.address }} | Tailscale={{ ansible_facts.tailscale0.ipv4.address }}"
   tags:
     - chk_ip
+    - never
+
+- name: print ansible_facts
+  debug: msg="{{ ansible_facts }}"
+  tags:
+    - chk_facts
     - never

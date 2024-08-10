@@ -22,15 +22,15 @@
     state: latest
   tags:
     - update_packages
+    - tailscale_configure
   notify:
     - restart tailscaled
 
 - name: Start tailscale
   debug:
     msg:
-      - Run the following command on {{ ansible_default_ipv4.address }} to start tailscale -
-      - "sudo tailscale up --qr"
-      - Complete the login and then check if the connection is successful by running -
-      - "tailscale ip"
+      - Run the following command on {{ ansible_default_ipv4.address }} to start tailscale - "sudo tailscale up --qr"
+      - Complete the login and then check if the connection is successful by running - "tailscale ip"
+      - Run the "tailscale_configure" ansible tag to configure tailscale after login
   tags:
     - manual

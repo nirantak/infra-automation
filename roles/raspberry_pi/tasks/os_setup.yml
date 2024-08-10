@@ -115,6 +115,7 @@
       - ripgrep
       - fonts-powerline
       - fonts-firacode
+      - grc
       - certbot
     state: latest
   tags:

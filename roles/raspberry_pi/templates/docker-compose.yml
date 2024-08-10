@@ -11,6 +11,7 @@ services:
   home-assistant:
     container_name: home-assistant
     image: "ghcr.io/home-assistant/home-assistant:stable"
+    hostname: "{{ homeassistant_hostname }}"
     volumes:
       - "{{ docker_shared_dir }}/home-assistant:/config"
       - /etc/localtime:/etc/localtime:ro
@@ -24,7 +25,8 @@ services:
 # https://github.com/pi-hole/docker-pi-hole#quick-start
   pihole:
     container_name: pihole
-    image: "pihole/pihole:latest"
+    image: "ghcr.io/pi-hole/pihole:latest"
+    hostname: "{{ pihole_hostname }}"
     ports:
       - "53:53/tcp"
       - "53:53/udp"

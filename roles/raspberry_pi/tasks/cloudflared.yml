@@ -1,0 +1,40 @@
+---
+- name: Add cloudflared user
+  user:
+    name: cloudflared
+    system: true
+    password_lock: true
+    create_home: false
+    shell: /usr/sbin/nologin
+  become: true
+  when: install_cloudflared_doh
+
+- name: Add cloudflared configs
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: cloudflared
+    group: cloudflared
+    mode: "0644"
+  with_items:
+    - { src: cloudflared/cloudflared, dest: /etc/default/cloudflared }
+    - { src: cloudflared/cloudflared.service, dest: /etc/systemd/system/cloudflared.service }
+  become: true
+  notify:
+    - restart cloudflared
+  when: install_cloudflared_doh
+
+- name: Set cloudflared config owners
+  file:
+    path: "{{ item }}"
+    owner: cloudflared
+    group: cloudflared
+  with_items:
+    - /etc/default/cloudflared
+    - /usr/local/bin/cloudflared
+  become: true
+  notify:
+    - restart cloudflared
+  when: install_cloudflared_doh
+  tags:
+    - update_cloudflared

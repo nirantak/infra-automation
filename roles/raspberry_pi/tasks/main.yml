@@ -11,7 +11,7 @@
 
 - import_tasks: tailscale.yml
   become: true
-  when: install_tailscale
+  when: tailscale_install
   tags:
     - tailscale
 
@@ -19,3 +19,9 @@
   become: true
   tags:
     - docker
+
+- import_tasks: pihole.yml
+  become: true
+  when: pihole_install
+  tags:
+    - pihole

@@ -1,0 +1,19 @@
+{% if tailscale_install %}
+
+{{ ansible_facts.tailscale0.ipv4.address }} {{ rpi_hostname }}
+{{ ansible_facts.tailscale0.ipv4.address }} {{ pihole_hostname }}
+
+{% if homeassistant_install %}
+{{ ansible_facts.tailscale0.ipv4.address }} {{ homeassistant_hostname }}
+{% endif %}
+
+{% else %}
+
+{{ ansible_facts.default_ipv4.address }} {{ rpi_hostname }}
+{{ ansible_facts.default_ipv4.address }} {{ pihole_hostname }}
+
+{% if homeassistant_install %}
+{{ ansible_facts.default_ipv4.address }} {{ homeassistant_hostname }}
+{% endif %}
+
+{% endif %}

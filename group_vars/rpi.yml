@@ -11,9 +11,9 @@ rpi_kb_layout: us
 
 # Setup zsh, ohmyzsh with plugins, dotfiles
 install_custom_shell: true
-install_tailscale: true
 install_python_version: 3.12.4
 install_bat_version: 0.24.0
+tailscale_install: true
 
 # Docker configuration
 docker_shared_dir: "/home/{{ ansible_user }}/apps"
@@ -33,7 +33,7 @@ pihole_adlist:
   - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
   - https://raw.githubusercontent.com/notracking/hosts-blocklists/master/hostnames.txt
   - https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt
-pihole_whitelist:
+pihole_allowlist:
   - chtbl.com # loads podcasts
   - s.youtube.com # marks YT videos as watched
   - firebaselogging.googleapis.com # causes some mobile apps to fail loading
