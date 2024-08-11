@@ -1,9 +1,12 @@
 ---
-- name: Add traefik config file
+- name: Add traefik config files
   template:
-    src: proxy/traefik.yml
-    dest: "{{ docker_shared_dir }}/traefik/traefik.yml"
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
     mode: "0644"
+  with_items:
+    - { src: proxy/traefik.yml, dest: "{{ docker_shared_dir }}/traefik/traefik.yml" }
+    - { src: proxy/file-provider.yml, dest: "{{ docker_shared_dir }}/traefik/file-provider.yml" }
   notify:
     - restart proxy
   tags:

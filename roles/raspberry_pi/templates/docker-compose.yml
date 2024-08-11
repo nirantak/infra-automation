@@ -11,7 +11,6 @@ services:
     ports:
       - "80:80/tcp"
       - "443:443/tcp"
-      - "{{ proxy_port }}:8080/tcp"
     volumes:
       - "{{ docker_shared_dir }}/traefik:/etc/traefik/"
       - /var/run/docker.sock:/var/run/docker.sock
@@ -22,8 +21,7 @@ services:
       - traefik.enable=true
       - traefik.http.routers.proxy.rule=Host(`{{ proxy_domain }}`)
       - traefik.http.routers.proxy.service=api@internal
-      - traefik.http.routers.proxy.middlewares=my-auth
-      - traefik.http.middlewares.my-auth.basicauth.usersfile=/etc/traefik/proxy-auth.htpasswd
+      - traefik.http.routers.proxy.middlewares=my-auth@file
 {% endif %}
 
 {% if hast_install %}
@@ -51,7 +49,9 @@ services:
       - "53:53/tcp"
       - "53:53/udp"
       - "67:67/udp"
+{% if not proxy_install %}
       - "{{ pihole_port }}:80/tcp"
+{% endif %}
     environment:
       TZ: '{{ rpi_timezone }}'
       WEBPASSWORD: '{{ pihole_password }}'

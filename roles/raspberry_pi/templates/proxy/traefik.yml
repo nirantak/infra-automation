@@ -5,9 +5,11 @@ api:
 providers:
   docker:
     exposedByDefault: false
+  file:
+    filename: /etc/traefik/file-provider.yml
 
 log:
-  level: DEBUG
+  level: WARN
 
 accessLog:
   filters:
@@ -20,23 +22,3 @@ entryPoints:
     address: ":80"
   websecure:
     address: ":443"
-
-http:
-  routers:
-    home-assistant:
-      entryPoints:
-        - web
-        - websecure
-      rule: "Host(`{{ hast_domain }}`)"
-      service: home-assistant
-
-  services:
-    home-assistant:
-      loadBalancer:
-        servers:
-          - "http://{{ ansible_facts.default_ipv4.address }}:{{ hast_port }}/"
-
-  middlewares:
-    my-auth:
-      basicAuth:
-        usersFile: "/etc/traefik/proxy-auth.htpasswd"

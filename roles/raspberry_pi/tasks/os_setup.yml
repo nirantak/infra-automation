@@ -168,6 +168,7 @@
     - { port: 67, proto: tcp } # DHCP tcp
     - { port: 67, proto: udp } # DHCP udp
     - { port: "546:547", proto: udp } # DHCPv6
+    - { port: 8123, proto: tcp } # Home Assistant
   tags:
     - setup_firewall
 

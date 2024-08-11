@@ -1,0 +1,20 @@
+# Traefik - file provider, imported in traefik.yml
+http:
+  routers:
+    home-assistant:
+      entryPoints:
+        - web
+        - websecure
+      rule: "Host(`{{ hast_domain }}`)"
+      service: home-assistant
+
+  services:
+    home-assistant:
+      loadBalancer:
+        servers:
+          - url: "http://{{ hast_domain }}:{{ hast_port }}/"
+
+  middlewares:
+    my-auth:
+      basicAuth:
+        usersFile: "/etc/traefik/proxy-auth.htpasswd"
