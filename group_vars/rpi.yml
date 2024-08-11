@@ -21,11 +21,11 @@ docker_shared_dir: "/home/{{ ansible_user }}/apps"
 # Home Assistant configuration
 homeassistant_install: true
 homeassistant_port: 8123
-homeassistant_hostname: home.pie.run
+homeassistant_domain: home.pie.run
 
 # Pi-hole configuration
 pihole_install: true
-pihole_hostname: dns.pie.run
+pihole_domain: dns.pie.run
 pihole_port: 8080
 pihole_password: "change-this-password" # change this to reset pihole admin password
 pihole_upstream_dns: "1.1.1.1;1.0.0.1"

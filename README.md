@@ -6,7 +6,11 @@
   - [Installation](#installation)
   - [Playbooks](#playbooks)
     - [rpi](#rpi)
+      - [Tailscale](#tailscale)
+        - [Next Steps for Tailscale](#next-steps-for-tailscale)
       - [Pi-hole](#pi-hole)
+        - [Next Steps for Pi-hole](#next-steps-for-pi-hole)
+      - [Home Assistant](#home-assistant)
   - [References](#references)
 
 ## Installation
@@ -56,20 +60,62 @@ ansible-playbook playbooks/raspberry_pi.yml
 ansible-playbook playbooks/raspberry_pi.yml -t ping
 ```
 
-- To change Pi-hole web admin interface password, run `pihole -a -p`.
-- To backup the Pi-hole config, run `pihole -a -t <backup-pihole.tar.gz>`.
+- **NOTE**: some setup requires manual steps, you can view those by running the `manual` ansible tag.
+
+```bash
+# List all manual steps required:
+ansible-playbook playbooks/raspberry_pi.yml -t manual
+```
+
+#### Tailscale
+
+> _[tailscale.com](https://tailscale.com)_
+
+- Tailscale can create a private network across all devices you have installed it on, allowing you to access your home server or Pi-hole DNS from anywhere even when away from your local home network.
+- It creates a peer to peer VPN network using WireGuard.
+- Create a tailscale account and then follow these steps:
+
+```bash
+# Run tasks for tailscale setup:
+ansible-playbook playbooks/raspberry_pi.yml -t tailscale
+
+# Tailscale requires manual login via the browser, so the above command may not set everything up.
+# Run the following command and then login via the link displayed:
+sudo tailscale up --qr
+
+# Once login is complete, run ansible with this tag to update configuration that requires tailscale:
+ansible-playbook playbooks/raspberry_pi.yml -t tailscale_configure
+```
+
+##### Next Steps for Tailscale
+
+- If you want to use Pi-hole DNS across your Tailnet, go to [Tailscale's DNS settings](https://login.tailscale.com/admin/dns) and set these configs:
+  - Set `Global nameservers` to the Tailscale IPv4 address of your Pi-hole server (get it by running `tailscale status`).
+  - Enable `Override local DNS`.
 
 #### Pi-hole
 
+> _[pi-hole.net](https://pi-hole.net)_
+
 Installs the Pi-hole for network-wide ad-blocking and local DNS. Make sure to update your network router config to direct all DNS queries through your Raspberry Pi if you want to use Pi-hole effectively.
 
-**Pi-hole**: Access the Pi-hole dahsboard using any of the following links and use the `pihole_password` you configured in your `config.yml` file.
+**Pi-hole**: Access the Pi-hole dahsboard using any of the following links and use the `pihole_password` you configured in your `rpi.yml` file.
 
-- The rpi_hostname setup (eg: [pie.run](http://pie.run/admin))
-- The default domain name for Pi-hole setup ([pi.hole](https://pi.hole/admin))
-- The IP address of the server (eg: [192.168.1.90](https://192.168.1.90/admin))
+- The pihole_domain setup (eg: [dns.pie.run](http://dns.pie.run/admin))
+- The IP/hostname address of the server with the configured pihole_port (eg: [pie.run:8080](https://pie.run:8080/admin))
 
 ![Pi-hole Dashboard](.github/images/pi-hole.png)
+
+##### Next Steps for Pi-hole
+
+- Set the IP address of the Pi-hole as the DNS server in your WiFi router or device's network settings.
+- Also follow the [steps mentioned above](#next-steps-for-tailscale) to set Pi-hole as the DNS server for your Tailnet, so that ads are blocked when you are away from your home network.
+  - This way, when you are connected to your WiFi, the configured DNS server will ensure that Pi-hole is being used even when you are not connected to Tailscale.
+  - And when you connect to Tailscale either in the same WiFi network or away, it will override the DNS server setting, and you will always be connected to Pi-hole.
+
+#### Home Assistant
+
+> _[home-assistant.io](https://www.home-assistant.io)_
 
 ---
 
