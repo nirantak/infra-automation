@@ -56,13 +56,9 @@
     dest: "{{ docker_shared_dir }}/docker-compose.yml"
     mode: "0640"
   become: false
+  notify:
+    - start docker-compose
   tags:
     - compose
-
-- name: Start docker compose
-  community.docker.docker_compose_v2:
-    project_src: "{{ docker_shared_dir }}"
-    state: present
-  become: false
-  tags:
-    - compose
+    - proxy_configure
+    - hast_configure

@@ -1,17 +1,37 @@
 name: rpi
 
-networks:
-  frontend:
-  backend:
-
 services:
 
-{% if homeassistant_install %}
+{% if proxy_install %}
+# https://doc.traefik.io/traefik/getting-started/quick-start/
+  proxy:
+    container_name: proxy
+    image: traefik:v3.1
+    hostname: "{{ proxy_domain }}"
+    ports:
+      - "80:80/tcp"
+      - "443:443/tcp"
+      - "{{ proxy_port }}:8080/tcp"
+    volumes:
+      - "{{ docker_shared_dir }}/traefik:/etc/traefik/"
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.proxy.rule=Host(`{{ proxy_domain }}`)
+      - traefik.http.routers.proxy.service=api@internal
+      - traefik.http.routers.proxy.middlewares=my-auth
+      - traefik.http.middlewares.my-auth.basicauth.usersfile=/etc/traefik/proxy-auth.htpasswd
+{% endif %}
+
+{% if hast_install %}
 # https://www.home-assistant.io/installation/alternative#docker-compose
   home-assistant:
     container_name: home-assistant
     image: "ghcr.io/home-assistant/home-assistant:stable"
-    hostname: "{{ homeassistant_domain }}"
+    hostname: "{{ hast_domain }}"
     volumes:
       - "{{ docker_shared_dir }}/home-assistant:/config"
       - /etc/localtime:/etc/localtime:ro
@@ -44,9 +64,14 @@ services:
       - "{{ docker_shared_dir }}/pihole/etc-pihole:/etc/pihole"
       - "{{ docker_shared_dir }}/pihole/etc-dnsmasq.d:/etc/dnsmasq.d"
       - /etc/localtime:/etc/localtime:ro
-    networks:
-      - frontend
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
+
+{% if proxy_install %}
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.pihole.rule=Host(`{{ pihole_domain }}`)
+      - traefik.http.services.pihole.loadbalancer.server.port=80
+{% endif %}
 {% endif %}

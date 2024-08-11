@@ -1,49 +1,26 @@
 ---
-- name: Update nginx conf
+- name: Add traefik config file
   template:
-    src: nginx.conf
-    dest: /etc/nginx/nginx.conf
-    owner: root
-    group: root
+    src: proxy/traefik.yml
+    dest: "{{ docker_shared_dir }}/traefik/traefik.yml"
     mode: "0644"
-
-- name: Update pihole nginx virtual conf
-  template:
-    src: pihole/nginx.conf
-    dest: /etc/nginx/conf.d/pihole.conf
-    owner: root
-    group: root
-    mode: "0644"
-  when: install_pihole
-
-- name: Set file permissions for nginx
-  file:
-    path: /var/www/html
-    state: directory
-    owner: www-data
-    group: www-data
-    mode: "0755"
-    recurse: true
-
-- name: Add www-data to pihole group
-  user:
-    name: www-data
-    groups:
-      - pihole
-      - www-data
-    append: true
-  when: install_pihole
-
-- name: Setup certbot command for LetsEncrypt
-  debug:
-    msg:
-      - Run the following command on {{ ansible_default_ipv4.address }} to setup ssl certs -
-      - "sudo certbot certonly --manual -d '{{ rpi_hostname }}' -m '{{ pihole_admin_email }}' --agree-tos --no-eff-email --preferred-challenges dns"
-      - Update you DNS provider to add a TXT record with name _acme-challenge and value in the above command's output.
-      - Once successful, run the following command to reload nginx -
-      - "sudo systemctl reload nginx"
-  when: install_ssl_certs
+  notify:
+    - restart proxy
   tags:
-    - setup_ssl_command
-    - nginx
-    - manual
+    - proxy_configure
+    - compose
+
+- name: Create a proxy-auth.htpasswd file
+  community.general.htpasswd:
+    path: "{{ docker_shared_dir }}/traefik/proxy-auth.htpasswd"
+    name: "{{ proxy_auth_user }}"
+    password: "{{ proxy_auth_password }}"
+    crypt_scheme: bcrypt
+    owner: root
+    group: root
+    mode: 0640
+  notify:
+    - restart proxy
+  tags:
+    - proxy_configure
+    - compose

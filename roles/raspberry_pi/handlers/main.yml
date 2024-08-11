@@ -34,6 +34,28 @@
     state: restarted
   become: false
 
+- name: restart home-assistant
+  community.docker.docker_compose_v2:
+    project_src: "{{ docker_shared_dir }}"
+    services:
+      - home-assistant
+    state: restarted
+  become: false
+
+- name: restart proxy
+  community.docker.docker_compose_v2:
+    project_src: "{{ docker_shared_dir }}"
+    services:
+      - proxy
+    state: restarted
+  become: false
+
+- name: start docker-compose
+  community.docker.docker_compose_v2:
+    project_src: "{{ docker_shared_dir }}"
+    state: present
+  become: false
+
 - name: restart tailscaled
   service:
     name: tailscaled

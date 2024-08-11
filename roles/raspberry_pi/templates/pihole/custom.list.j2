@@ -2,18 +2,14 @@
 
 {{ ansible_facts.tailscale0.ipv4.address }} {{ rpi_hostname }}
 {{ ansible_facts.tailscale0.ipv4.address }} {{ pihole_domain }}
-
-{% if homeassistant_install %}
-{{ ansible_facts.tailscale0.ipv4.address }} {{ homeassistant_domain }}
-{% endif %}
+{{ ansible_facts.tailscale0.ipv4.address }} {{ hast_domain }}
+{{ ansible_facts.tailscale0.ipv4.address }} {{ proxy_domain }}
 
 {% else %}
 
 {{ ansible_facts.default_ipv4.address }} {{ rpi_hostname }}
 {{ ansible_facts.default_ipv4.address }} {{ pihole_domain }}
-
-{% if homeassistant_install %}
-{{ ansible_facts.default_ipv4.address }} {{ homeassistant_domain }}
-{% endif %}
+{{ ansible_facts.default_ipv4.address }} {{ hast_domain }}
+{{ ansible_facts.default_ipv4.address }} {{ proxy_domain }}
 
 {% endif %}

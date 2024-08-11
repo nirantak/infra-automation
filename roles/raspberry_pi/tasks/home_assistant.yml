@@ -1,0 +1,11 @@
+---
+- name: Add Home Assistant config file
+  template:
+    src: home-assistant/configuration.yml
+    dest: "{{ docker_shared_dir }}/home-assistant/configuration.yaml"
+    mode: "0644"
+  notify:
+    - restart home-assistant
+  tags:
+    - hast_configure
+    - compose

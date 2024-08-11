@@ -18,10 +18,17 @@ tailscale_install: true
 # Docker configuration
 docker_shared_dir: "/home/{{ ansible_user }}/apps"
 
+# Proxy configuration
+proxy_install: true
+proxy_port: 8000
+proxy_domain: proxy.pie.run
+proxy_auth_user: "{{ ansible_user }}"
+proxy_auth_password: "change-this-password"
+
 # Home Assistant configuration
-homeassistant_install: true
-homeassistant_port: 8123
-homeassistant_domain: home.pie.run
+hast_install: true
+hast_port: 8123
+hast_domain: home.pie.run
 
 # Pi-hole configuration
 pihole_install: true

@@ -25,3 +25,16 @@
   when: pihole_install
   tags:
     - pihole
+
+- import_tasks: home_assistant.yml
+  become: true
+  when: hast_install
+  tags:
+    - home_assistant
+    - hast
+
+- import_tasks: proxy.yml
+  become: true
+  when: proxy_install
+  tags:
+    - proxy

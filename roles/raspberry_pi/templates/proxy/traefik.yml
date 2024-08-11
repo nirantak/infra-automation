@@ -1,0 +1,42 @@
+# Traefik - static configuration
+api:
+  dashboard: true
+
+providers:
+  docker:
+    exposedByDefault: false
+
+log:
+  level: DEBUG
+
+accessLog:
+  filters:
+    statusCodes:
+      - "400-499"
+      - "500-599"
+
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+
+http:
+  routers:
+    home-assistant:
+      entryPoints:
+        - web
+        - websecure
+      rule: "Host(`{{ hast_domain }}`)"
+      service: home-assistant
+
+  services:
+    home-assistant:
+      loadBalancer:
+        servers:
+          - "http://{{ ansible_facts.default_ipv4.address }}:{{ hast_port }}/"
+
+  middlewares:
+    my-auth:
+      basicAuth:
+        usersFile: "/etc/traefik/proxy-auth.htpasswd"

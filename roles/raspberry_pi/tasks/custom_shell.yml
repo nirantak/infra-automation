@@ -90,6 +90,7 @@
     - setuptools
     - ipython
     - httpie
+    - passlib
   when: install_python_version
   tags:
     - update_packages
