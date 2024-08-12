@@ -5,8 +5,12 @@ http:
       entryPoints:
         - web
         - websecure
-      rule: "Host(`{{ hast_domain }}`)"
       service: home-assistant
+      rule: "Host(`{{ hast_domain }}`)"
+{% if proxy_cert_resolver %}
+      tls:
+        certResolver: resolver-{{ proxy_cert_resolver }}
+{% endif %}
 
   services:
     home-assistant:

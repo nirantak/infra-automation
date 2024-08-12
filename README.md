@@ -34,6 +34,7 @@ Update the following files to your liking:
 
 - `inventory.ini` (replace IP address with your server's IP, or use `127.0.0.1` and add `connection=local` at the end if you're running it on the machine you're setting up).
 - `group_vars/<group>.yml` to update the config for any host group from the inventory.
+- `roles/raspberry_pi/files/sample.env` for any secrets to be passed to docker-compose.
 
 ---
 
@@ -102,7 +103,7 @@ Installs the Pi-hole for network-wide ad-blocking and local DNS. Make sure to up
 **Pi-hole**: Access the Pi-hole dahsboard using any of the following links and use the `pihole_password` you configured in your `rpi.yml` file.
 
 - The pihole_domain setup (eg: [dns.pie.run](http://dns.pie.run/admin))
-- The IP/hostname address of the server with the configured pihole_port (eg: [pie.run:8080](https://pie.run:8080/admin))
+- The IP/hostname address of the server with the configured pihole_port (eg: [pi.hole:8080](https://pi.hole:8080/admin))
 
 ![Pi-hole Dashboard](.github/images/pi-hole.png)
 

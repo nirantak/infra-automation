@@ -4,6 +4,7 @@
     src: home-assistant/configuration.yml
     dest: "{{ docker_shared_dir }}/home-assistant/configuration.yaml"
     mode: "0644"
+    backup: true
   notify:
     - restart home-assistant
   tags:

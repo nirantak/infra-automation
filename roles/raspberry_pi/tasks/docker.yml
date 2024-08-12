@@ -62,3 +62,16 @@
     - compose
     - proxy_configure
     - hast_configure
+
+- name: Add .env file
+  copy:
+    src: sample.env
+    dest: "{{ docker_shared_dir }}/.env"
+    mode: "0440"
+    force: false
+  become: false
+  notify:
+    - start docker-compose
+  tags:
+    - compose
+    - proxy_configure

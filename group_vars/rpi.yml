@@ -4,6 +4,7 @@
 # Raspberry Pi configuration
 ssh_public_key_url: "https://github.com/nirantak.keys"
 rpi_hostname: pie.run
+rpi_admin_email: "<change-this-email-id>"
 rpi_timezone: Asia/Kolkata
 rpi_wifi_country: IN
 rpi_locale: en_US.UTF-8
@@ -22,8 +23,9 @@ docker_shared_dir: "/home/{{ ansible_user }}/apps"
 proxy_install: true
 proxy_port: 8000
 proxy_domain: proxy.pie.run
+proxy_cert_resolver: "letsencrypt" # [letsencrypt|tailscale] generate certs for all domains in the proxy using one of these resolvers
 proxy_auth_user: "{{ ansible_user }}"
-proxy_auth_password: "change-this-password"
+proxy_auth_password: "<change-this-password>"
 
 # Home Assistant configuration
 hast_install: true
@@ -34,7 +36,7 @@ hast_domain: home.pie.run
 pihole_install: true
 pihole_domain: dns.pie.run
 pihole_port: 8080
-pihole_password: "change-this-password" # change this to reset pihole admin password
+pihole_password: "<change-this-password>" # change this to reset pihole admin password
 pihole_upstream_dns: "1.1.1.1;1.0.0.1"
 pihole_adlist:
   - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts

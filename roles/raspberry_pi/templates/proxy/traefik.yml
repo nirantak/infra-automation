@@ -5,6 +5,7 @@ api:
 providers:
   docker:
     exposedByDefault: false
+
   file:
     filename: /etc/traefik/file-provider.yml
 
@@ -20,5 +21,25 @@ accessLog:
 entryPoints:
   web:
     address: ":80"
+{% if proxy_cert_resolver %}
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+          permanent: true
+{% endif %}
+
   websecure:
     address: ":443"
+
+certificatesResolvers:
+  resolver-letsencrypt:
+    acme:
+      email: "{{ rpi_admin_email }}"
+      storage: /etc/traefik/acme-cert-storage.json
+      dnsChallenge:
+        provider: cloudflare
+
+  resolver-tailscale:
+    tailscale: {}
