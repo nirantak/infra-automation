@@ -154,7 +154,7 @@
   tags:
     - set_sysctl
 
-- name: Setup UFW firewall
+- name: UFW firewall - allow ports from anywhere
   community.general.ufw:
     rule: allow
     port: "{{ item.port }}"
@@ -168,7 +168,19 @@
     - { port: 67, proto: tcp } # DHCP tcp
     - { port: 67, proto: udp } # DHCP udp
     - { port: "546:547", proto: udp } # DHCPv6
-    - { port: 8123, proto: tcp } # Home Assistant
+  notify:
+    - reload UFW
+  tags:
+    - setup_firewall
+
+- name: UFW firewall - allow home assistant from docker
+  community.general.ufw:
+    rule: allow
+    port: 8123
+    proto: tcp
+    src: 172.16.0.0/12
+  notify:
+    - reload UFW
   tags:
     - setup_firewall
 

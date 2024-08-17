@@ -62,3 +62,8 @@
     state: restarted
     enabled: true
   become: true
+
+- name: reload UFW
+  community.general.ufw:
+    state: reloaded
+  become: true

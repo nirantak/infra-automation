@@ -1,5 +1,5 @@
 # For more options and information see
-# https://rpf.io/configtxt
+# https://rpf.io/configtxt or /boot/firmware/overlays/README
 # https://www.raspberrypi.com/documentation/computers/config_txt.html
 # https://github.com/RPi-Distro/pi-gen/blob/master/stage1/00-boot-files/files/config.txt
 
@@ -35,3 +35,6 @@ otg_mode=1
 
 # Run as fast as firmware / board allows
 arm_boost=1
+
+# Fan on GPIO 14 enabled at 60C
+dtoverlay=gpio-fan,gpiopin=14,temp=60000
