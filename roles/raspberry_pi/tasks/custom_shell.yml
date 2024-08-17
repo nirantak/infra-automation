@@ -112,6 +112,7 @@
     state: directory
   tags:
     - motd
+    - fastfetch
 
 - name: Add fastfetch config
   copy:
@@ -119,6 +120,7 @@
     dest: ~/.config/fastfetch/config.jsonc
   tags:
     - motd
+    - fastfetch
 
 - name: Add custom motd
   template:

@@ -21,8 +21,11 @@
     "break",
     "users",
     "uptime",
-    "loadavg",
-    "processes",
+    "memory",
+    "physicalmemory",
+    "swap",
+    "disk",
+    "break",
     {
       "type": "cpu",
       "showPeCoreCount": true,
@@ -34,10 +37,14 @@
       "driverSpecific": true,
       "temp": true
     },
-    "memory",
-    "physicalmemory",
-    "swap",
-    "disk",
+    "loadavg",
+    "processes",
+    {
+      "type": "command",
+      "text": "cat /sys/devices/virtual/thermal/cooling_device*/cur_state",
+      "key": "Fan Status",
+      "outputColor": "green"
+    },
     "break",
     "wifi",
     "dns",
