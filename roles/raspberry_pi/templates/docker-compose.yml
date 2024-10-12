@@ -6,7 +6,7 @@ services:
 # https://doc.traefik.io/traefik/getting-started/quick-start/
   proxy:
     container_name: proxy
-    image: traefik:v3.1
+    image: traefik:v3
     hostname: "{{ proxy_domain }}"
     ports:
       - "80:80/tcp"

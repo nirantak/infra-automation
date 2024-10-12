@@ -60,6 +60,7 @@
     - start docker-compose
   tags:
     - compose
+    - compose_yml
     - proxy_configure
     - hast_configure
 
