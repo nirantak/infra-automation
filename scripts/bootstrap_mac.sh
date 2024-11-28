@@ -19,7 +19,8 @@ brew install ctags gnu-time gnu-sed grep gpgme pinentry-mac watch
 brew install python3 node go gcc svn pandoc lynx imagemagick k9s
 brew install autossh vnstat openvpn coreutils hping wrk mtr inetutils nmap
 brew install cloudflared nirantak/tap/sshpass gh sox pipx hyperfine
-brew install diff-so-fancy grc lnav cloc jq fzf ripgrep shellcheck
+brew install zoxide diff-so-fancy git-delta grc lnav cloc jq fzf ripgrep shellcheck
+brew install exiftool hexedit
 
 echo -e "\n \x1B[32m Installing Apps \x1B[0m"
 brew install --cask rectangle wezterm istat-menus raycast visual-studio-code
