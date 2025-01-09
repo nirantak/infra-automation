@@ -6,7 +6,7 @@ IFS=$'\n\t'
 USER=$(whoami)
 
 # Program versions for installation
-PYTHON_VERSION=3.12.4
+PYTHON_VERSION=3.13.1
 
 echo -e "\n \x1B[32m Setting up Dev Env \x1B[0m"
 xcode-select --install
@@ -23,7 +23,7 @@ brew install zoxide diff-so-fancy git-delta grc lnav cloc jq fzf ripgrep shellch
 brew install exiftool hexedit
 
 echo -e "\n \x1B[32m Installing Apps \x1B[0m"
-brew install --cask rectangle wezterm istat-menus raycast visual-studio-code
+brew install --cask rectangle ghostty istat-menus raycast visual-studio-code
 brew install --cask spotify brave-browser slack zoom vlc
 brew install --cask obsidian 1password karabiner-elements tailscale
 brew install --cask android-file-transfer docker raspberry-pi-imager
