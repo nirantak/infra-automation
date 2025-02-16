@@ -26,10 +26,21 @@
   notify:
     - restart tailscaled
 
+- name: Add subnet router to tailscale
+  copy:
+    src: tailscale/sysctl.conf.j2
+    dest: "/etc/sysctl.d/99-tailscale.conf"
+    mode: "0644"
+  become: true
+  tags:
+    - tailscale_configure
+  notify:
+    - restart tailscaled
+
 - name: Start tailscale
   debug:
     msg:
-      - Run the following command on {{ ansible_default_ipv4.address }} to start tailscale - "sudo tailscale up --qr"
+      - Run the following command on {{ ansible_default_ipv4.address }} to start tailscale - "sudo tailscale up --advertise-routes={{ tailscale_subnet }} --qr"
       - Complete the login and then check if the connection is successful by running - "tailscale ip"
       - Run the "tailscale_configure" ansible tag to configure tailscale after login
   tags:

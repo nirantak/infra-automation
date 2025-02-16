@@ -1,14 +1,4 @@
 ---
-- name: Add custom DNS list to Pi-hole
-  template:
-    src: pihole/custom.list.j2
-    dest: "{{ docker_shared_dir }}/pihole/etc-pihole/custom.list"
-    mode: "0644"
-  become: true
-  tags:
-    - pihole_configure
-    - tailscale_configure
-
 - name: Add custom adlists to Pi-hole
   shell: sqlite3 "{{ docker_shared_dir }}/pihole/etc-pihole/gravity.db" "INSERT or IGNORE INTO adlist(address) values('{{ item }}');"
   with_items: "{{ pihole_adlist }}"
