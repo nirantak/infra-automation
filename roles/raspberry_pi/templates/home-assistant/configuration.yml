@@ -16,5 +16,5 @@ http:
   use_x_forwarded_for: true
   trusted_proxies:
     - 172.0.0.0/8
-    - "{{ ansible_facts.tailscale0.ipv4.address }}"
-    - "{{ ansible_facts.default_ipv4.address }}"
+    - 100.64.0.0/10
+    - "{{ tailscale_subnet }}"
