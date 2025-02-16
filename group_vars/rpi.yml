@@ -12,8 +12,8 @@ rpi_kb_layout: us
 
 # Setup zsh, ohmyzsh with plugins, dotfiles
 install_custom_shell: true
-install_python_version: 3.12.4
-install_bat_version: 0.24.0
+install_python_version: 3.13.2
+install_bat_version: 0.25.0
 tailscale_install: true
 
 # Docker configuration

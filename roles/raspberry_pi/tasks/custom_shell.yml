@@ -47,12 +47,6 @@
     - { src: tools/.vimrc, dest: .vimrc }
     - { src: shell/.zshenv, dest: .zshenv }
 
-- name: Download Wezterm shell integration
-  get_url:
-    url: https://raw.githubusercontent.com/wez/wezterm/main/assets/shell-integration/wezterm.sh
-    dest: ~/.wezterm_integration.sh
-    mode: "0644"
-
 - name: Clone pyenv and plugins
   git:
     repo: "{{ item.src }}"
