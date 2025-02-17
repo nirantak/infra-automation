@@ -168,6 +168,9 @@
     - { port: 67, proto: tcp } # DHCP tcp
     - { port: 67, proto: udp } # DHCP udp
     - { port: "546:547", proto: udp } # DHCPv6
+    - { port: 5353, proto: udp } # Homekit Bridge
+    - { port: 21065, proto: tcp } # Homekit Bridge
+    - { port: 5625, proto: udp } # Atomberg
   notify:
     - reload UFW
   tags:
@@ -178,7 +181,7 @@
     rule: allow
     port: 8123
     proto: tcp
-    src: 172.16.0.0/12
+    src: 172.0.0.0/8
   notify:
     - reload UFW
   tags:

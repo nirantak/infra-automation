@@ -10,3 +10,20 @@
   tags:
     - hast_configure
     - compose
+
+- name: Download HACS installer
+  get_url:
+    url: https://raw.githubusercontent.com/hacs/get/main/get
+    dest: "{{ docker_shared_dir }}/home-assistant/install-hacs.sh"
+    mode: "0744"
+  tags:
+    - hast_configure
+
+- name: Install HACS
+  community.docker.docker_container_exec:
+    container: home-assistant
+    command: bash /config/install-hacs.sh
+  notify:
+    - restart home-assistant
+  tags:
+    - hast_configure
