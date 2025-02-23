@@ -59,18 +59,18 @@ services:
 {% endif %}
     environment:
       TZ: '{{ rpi_timezone }}'
-      WEBPASSWORD: '{{ pihole_password }}'
+      FTLCONF_webserver_api_password: '{{ pihole_password }}'
       FTLCONF_LOCAL_IPV4: '{{ ansible_facts['default_ipv4']['address'] }}'
-      PIHOLE_DNS_: '{{ pihole_upstream_dns }}'
-      VIRTUAL_HOST: '{{ pihole_domain | default(rpi_hostname, True) }}'
-      TEMPERATUREUNIT: 'c'
-      WEBTHEME: 'default-auto'
+      FTLCONF_dns_upstreams: '{{ pihole_upstream_dns }}'
+      FTLCONF_webserver_interface_theme: 'default-auto'
     volumes:
       - "{{ docker_shared_dir }}/pihole/etc-pihole:/etc/pihole"
       - "{{ docker_shared_dir }}/pihole/etc-dnsmasq.d:/etc/dnsmasq.d"
       - /etc/localtime:/etc/localtime:ro
     cap_add:
       - NET_ADMIN
+      - SYS_TIME
+      - SYS_NICE
     restart: unless-stopped
 
 {% if proxy_install %}

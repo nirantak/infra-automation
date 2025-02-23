@@ -24,5 +24,11 @@ homekit:
   port: 21065
   filter:
     include_domains:
-      - light
+      - alarm_control_panel
+      - automation
+      - camera
       - fan
+      - light
+      - lock
+      - scene
+      - script
